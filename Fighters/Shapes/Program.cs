@@ -15,7 +15,7 @@ namespace Shapes
                 Console.WriteLine("2. Треугольник");
                 Console.WriteLine("3. Квадрат");
                 Console.WriteLine("Введите соответствующее число (1, 2, 3), или введите 'list' для просмотра списка фигур, или 'exit' для выхода:");
-                string type = Console.ReadLine().ToLower();
+                string type = (Console.ReadLine() ?? throw new Exception ("Invalid type")).ToLower();
 
                 switch (type)
                 {
@@ -44,7 +44,7 @@ namespace Shapes
         static void AddCircle()
         {
             Console.WriteLine("Введите координаты центра круга (x y) и радиус:");
-            string[] parts = Console.ReadLine().Split(' ');
+            string[] parts = (Console.ReadLine()?? throw new Exception("Invalid arguments")).Split(' ');
 
             if (parts.Length != 3)
             {
@@ -66,7 +66,7 @@ namespace Shapes
         static void AddTriangle()
         {
             Console.WriteLine("Введите координаты вершин треугольника (x1 y1 x2 y2 x3 y3):");
-            string[] parts = Console.ReadLine().Split(' ');
+            string[] parts = (Console.ReadLine() ?? throw new Exception("Invalid arguments")).Split(' ');
 
             if (parts.Length != 6)
             {
