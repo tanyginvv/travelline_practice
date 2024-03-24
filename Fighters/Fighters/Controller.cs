@@ -11,7 +11,7 @@ namespace Fighters
         public static Fighter CreateFighter()
         {
             Console.WriteLine("Введите имя бойца:");
-            string name = Console.ReadLine();
+            string name = Console.ReadLine() ?? throw new Exception("Error name of fighter");
 
             IRace selectedRace = ChooseRace();
             IWeapon selectedWeapon = ChooseWeapon();
