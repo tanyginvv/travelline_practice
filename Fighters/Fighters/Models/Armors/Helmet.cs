@@ -1,7 +1,7 @@
-﻿namespace Fighters.Armors
+﻿namespace Fighters.Models.Armors
 {
-    internal class Helmet : IArmor
+    public class Helmet : IArmor
     {
-        public int Armor { get; } = 20;
+        public int Armor => 20;
     }
 }

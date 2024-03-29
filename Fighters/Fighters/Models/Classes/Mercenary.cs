@@ -1,9 +1,8 @@
 ﻿namespace Fighters.Models.Classes
 {
-    internal class Mercenary : IClass
+    public class Mercenary : IClass
     {
-        public int Damage { get; } = 10;
-
-        public int Health { get; } = 20;
+        public int Damage => 10;
+        public int Health => 20;
     }
 }

@@ -1,9 +1,8 @@
 ﻿namespace Fighters.Models.Classes
 {
-    internal class Knight : IClass
+    public class Knight : IClass
     {
-        public int Damage { get; } = 20;
-
-        public int Health { get; } = 50;
+        public int Damage => 20;
+        public int Health => 50;
     }
 }

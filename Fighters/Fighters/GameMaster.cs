@@ -1,14 +1,14 @@
 ﻿using Fighters.Models.Fighters;
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace Fighters
 {
     public class GameMaster
     {
-        public IFighter PlayAndGetWinner(List<Fighter> fighters)
+        public IFighter PlayAndGetWinner(List<IFighter> fighters)
         {
-            Random random = new Random();
-            List<Fighter> orderedFighters = OrderFightersByRaceSpeed(fighters, random);
+            List<IFighter> orderedFighters = fighters.OrderByDescending(f => f.Speed).ThenBy(_ => Random.Shared.Next()).ToList();
 
             Console.WriteLine("Бой начался!");
             Console.WriteLine("Начальный порядок ходов:");
@@ -24,13 +24,13 @@ namespace Fighters
             {
                 Console.WriteLine($"Раунд {round++}:");
 
-                for (int i = 0; i < fighters.Count; i++)
+                for (int i = 0; i < orderedFighters.Count; i++)
                 {
                     int attackerIndex = i;
-                    int defenderIndex = (i + 1) % fighters.Count;
+                    int defenderIndex = (i + 1) % orderedFighters.Count;
 
-                    var attacker = fighters[attackerIndex];
-                    var defender = fighters[defenderIndex];
+                    var attacker = orderedFighters[attackerIndex];
+                    var defender = orderedFighters[defenderIndex];
 
                     Console.WriteLine($"Боец {attacker.Name} атакует Бойца {defender.Name}");
 
@@ -39,71 +39,20 @@ namespace Fighters
                     if (defender.CurrentHealth <= 0)
                     {
                         Console.WriteLine($"Боец {defender.Name} был повержен!");
-                        fighters.Remove(defender);
+                        orderedFighters.Remove(defender);
                     }
                 }
 
-                if (fighters.Count == 1)
+                if (orderedFighters.Count == 1)
                 {
-                    return fighters[0];
+                    return orderedFighters[0];
                 }
 
                 Console.WriteLine();
             }
         }
 
-        private List<Fighter> OrderFightersByRaceSpeed(List<Fighter> fighters, Random random)
-        {
-            Dictionary<string, int> raceSpeeds = new Dictionary<string, int>();
-            foreach (var fighter in fighters)
-            {
-                string race = fighter.Race.Name;
-                int speed = fighter.Speed;
-
-                if (!raceSpeeds.ContainsKey(race))
-                {
-                    raceSpeeds[race] = speed;
-                }
-                else if (speed > raceSpeeds[race])
-                {
-                    raceSpeeds[race] = speed;
-                }
-            }
-
-            List<(Fighter fighter, int speed)> fightersWithSpeeds = new List<(Fighter, int)>();
-            foreach (var fighter in fighters)
-            {
-                string race = fighter.Race.Name;
-                int speed = raceSpeeds[race];
-                fightersWithSpeeds.Add((fighter, speed));
-            }
-
-            List<Fighter> orderedFighters = fightersWithSpeeds.OrderByDescending(x => x.speed).Select(x => x.fighter).ToList();
-
-            if (raceSpeeds.Count == 1)
-            {
-                orderedFighters = orderedFighters.OrderBy(x => random.Next()).ToList();
-            }
-            else
-            {
-                var groupedByRace = orderedFighters.GroupBy(x => x.Race);
-                foreach (var group in groupedByRace)
-                {
-                    if (group.Count() > 1)
-                    {
-                        var shuffledGroup = group.OrderBy(x => random.Next()).ToList();
-                        for (int i = 0; i < group.Count(); i++)
-                        {
-                            orderedFighters[orderedFighters.IndexOf(group.ElementAt(i))] = shuffledGroup[i];
-                        }
-                    }
-                }
-            }
-
-            return orderedFighters;
-        }
-
-        private bool FightAndCheckIfOpponentDead(Fighter roundOwner, Fighter opponent)
+        private bool FightAndCheckIfOpponentDead(IFighter roundOwner, IFighter opponent)
         {
             int damage = roundOwner.CalculateDamage();
             int takenDamage = Math.Max(damage - opponent.CurrentArmor, 0);

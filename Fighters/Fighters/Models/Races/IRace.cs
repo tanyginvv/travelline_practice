@@ -1,4 +1,4 @@
-﻿namespace Fighters.Races
+﻿namespace Fighters.Models.Races
 {
     public interface IRace
     {

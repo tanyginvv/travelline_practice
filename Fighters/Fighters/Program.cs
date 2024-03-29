@@ -15,11 +15,11 @@ namespace Fighters
                 Console.WriteLine("Введите корректное целое число, больше или равное 2:");
             }
 
-            List<Fighter> fighters = new List<Fighter>();
+            List<IFighter> fighters = new List<IFighter>();
             for (int i = 1; i <= numberOfFighters; i++)
             {
                 Console.WriteLine($"Выберите параметры для {i}-го бойца:");
-                fighters.Add(Controller.CreateFighter());
+                fighters.Add(FighterFactory.CreateFighter());
                 Console.WriteLine($"{i}-й боец успешно добавлен!");
             }
 

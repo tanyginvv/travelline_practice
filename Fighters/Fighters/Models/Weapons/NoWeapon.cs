@@ -1,9 +1,7 @@
-﻿using Fighters.Weapons;
-
-namespace Fighters
+﻿namespace Fighters.Models.Weapons
 {
     public class NoWeapon : IWeapon
     {
-        public int Damage { get; } = 1;
+        public int Damage => 1;
     }
 }

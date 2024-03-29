@@ -1,6 +1,7 @@
-﻿using Fighters.Armors;
-using Fighters.Races;
-using Fighters.Weapons;
+﻿using Fighters.Models.Armors;
+using Fighters.Models.Classes;
+using Fighters.Models.Races;
+using Fighters.Models.Weapons;
 
 namespace Fighters.Models.Fighters
 {
@@ -13,36 +14,34 @@ namespace Fighters.Models.Fighters
         public IRace Race { get; }
         public IWeapon Weapon { get; private set; }
         public IArmor Armor {  get; private set; }
-
         public int CurrentArmor => Race.Armor + Armor.Armor;
         public IClass Class { get; private set; }
         //пусть каждый третий удар будет критическим(то есть будет увеличен в 2 раза) для этого ввожу счетчик
         public int CriticalDamageCounter { get; set; } = 0;
-
-        public Fighter(string name, IRace race, IWeapon weapon, IArmor armor, IClass _class)
+        public Fighter(string name, IRace race, IWeapon weapon, IArmor armor, IClass classFighter)
         {
             Name = name;
             Race = race;
             Weapon = weapon;
             Armor = armor;
-            Class = _class;
+            Class = classFighter;
             CurrentHealth = MaxHealth;
         }
 
         public int CalculateDamage()
         {
-            Random random = new Random();
-            double damageModifier = (random.Next(80, 120) * 0.01);
-            CriticalDamageCounter++; 
+            double damageModifier = (Random.Shared.Next(80, 121) / 100d);
+            CriticalDamageCounter++;
+            double allDamage = (Race.Damage + Class.Damage + Weapon.Damage) * damageModifier;
             if (CriticalDamageCounter % 3 == 0) 
             {
                 Console.WriteLine("Критический урон");
                 CriticalDamageCounter = 0;
-                return (int)Math.Max((Race.Damage + Class.Damage + Weapon.Damage) * damageModifier * 2, 0);
+                return (int) allDamage * 2;
             }
             else
             {
-                return (int)Math.Max((Race.Damage + Class.Damage + Weapon.Damage) * damageModifier, 0);
+                return (int) allDamage;
             }
         }
 

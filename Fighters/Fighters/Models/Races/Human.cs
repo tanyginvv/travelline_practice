@@ -1,13 +1,11 @@
-﻿namespace Fighters.Races
+﻿namespace Fighters.Models.Races
 {
     public class Human : IRace
     {
-        public string Name { get; } = "Человек";
-        public int Damage { get; } = 11;
-
-        public int Health { get; } = 100;
-
-        public int Armor { get; } = 10;
-        public int Speed { get; } = 30;
+        public string Name => "Человек";
+        public int Damage => 11;
+        public int Health => 100;
+        public int Armor => 10;
+        public int Speed => 30;
     }
 }

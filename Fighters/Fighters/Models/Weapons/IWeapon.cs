@@ -1,4 +1,4 @@
-﻿namespace Fighters.Weapons
+﻿namespace Fighters.Models.Weapons
 {
     public interface IWeapon
     {

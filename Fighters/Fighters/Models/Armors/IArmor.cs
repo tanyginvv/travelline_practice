@@ -1,4 +1,4 @@
-﻿namespace Fighters
+﻿namespace Fighters.Models.Armors
 {
     public interface IArmor
     {

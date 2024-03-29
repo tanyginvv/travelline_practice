@@ -1,7 +1,7 @@
-﻿namespace Fighters.Weapons
+﻿namespace Fighters.Models.Weapons
 {
-    internal class Staff : IWeapon
+    public class Staff : IWeapon
     {
-        public int Damage {get;} = 10;
+        public int Damage => 10;
     }
 }

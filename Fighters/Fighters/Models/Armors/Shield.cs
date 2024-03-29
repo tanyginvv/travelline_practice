@@ -1,7 +1,7 @@
-﻿namespace Fighters
+﻿namespace Fighters.Models.Armors
 {
-    internal class Shield : IArmor
+    public class Shield : IArmor
     {
-        public int Armor { get; } = 50;
+        public int Armor => 50;
     }
 }

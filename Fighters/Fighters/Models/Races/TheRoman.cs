@@ -1,13 +1,11 @@
-﻿namespace Fighters.Races
+﻿namespace Fighters.Models.Races
 {
-    internal class TheRoman : IRace
+    public class TheRoman : IRace
     {
-        public string Name { get; } = "Римлянин";
-        public int Damage { get; } = 15;
-
-        public int Health { get; } = 180;
-
-        public int Armor { get; } = 20;
-        public int Speed { get; } = 25;
+        public string Name => "Римлянин";
+        public int Damage => 15;
+        public int Health => 180;
+        public int Armor => 20;
+        public int Speed => 25;
     }
 }
