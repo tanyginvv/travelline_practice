@@ -6,7 +6,7 @@ using Fighters.Models.Weapons;
 
 namespace Fighters
 {
-    public class FighterFactory
+    public static class FighterFactory
     {
         public static Fighter CreateFighter()
         {

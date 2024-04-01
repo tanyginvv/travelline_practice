@@ -1,6 +1,4 @@
 ﻿using Fighters.Models.Fighters;
-using System.Collections.Generic;
-using System.Drawing;
 
 namespace Fighters
 {
@@ -22,7 +20,7 @@ namespace Fighters
             int round = 0;
             while(true)
             {
-                Console.WriteLine($"Раунд {round++}:");
+                Console.WriteLine($"Раунд {++round}:");
 
                 for (int i = 0; i < orderedFighters.Count; i++)
                 {
@@ -40,14 +38,10 @@ namespace Fighters
                     {
                         Console.WriteLine($"Боец {defender.Name} был повержен!");
                         orderedFighters.Remove(defender);
+                        if(orderedFighters.Count == 1) 
+                            return attacker;
                     }
                 }
-
-                if (orderedFighters.Count == 1)
-                {
-                    return orderedFighters[0];
-                }
-
                 Console.WriteLine();
             }
         }

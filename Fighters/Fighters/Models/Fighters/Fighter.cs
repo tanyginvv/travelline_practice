@@ -8,23 +8,23 @@ namespace Fighters.Models.Fighters
     public class Fighter : IFighter
     {
         public int MaxHealth => Race.Health + Class.Health;
-        public int CurrentHealth { get; set; }
+        public int CurrentHealth { get; set; } 
         public string Name { get; }
         public int Speed => Race.Speed;
         public IRace Race { get; }
-        public IWeapon Weapon { get; private set; }
-        public IArmor Armor {  get; private set; }
+        public IWeapon Weapon { get; set; }
+        public IArmor Armor {  get; set; }
         public int CurrentArmor => Race.Armor + Armor.Armor;
-        public IClass Class { get; private set; }
+        public IClass Class { get; set; }
         //пусть каждый третий удар будет критическим(то есть будет увеличен в 2 раза) для этого ввожу счетчик
-        public int CriticalDamageCounter { get; set; } = 0;
-        public Fighter(string name, IRace race, IWeapon weapon, IArmor armor, IClass classFighter)
+        public int CriticalDamageCounter { get; set; }
+        public Fighter(string name, IRace race, IWeapon weapon, IArmor armor, IClass fighterClass)
         {
             Name = name;
             Race = race;
             Weapon = weapon;
             Armor = armor;
-            Class = classFighter;
+            Class = fighterClass;
             CurrentHealth = MaxHealth;
         }
 
