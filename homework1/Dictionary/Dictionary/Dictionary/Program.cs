@@ -3,6 +3,7 @@
     class Program
     {
         static Dictionary<string, string> translations = new Dictionary<string, string>();
+
         const string INPUT_FILE = "translations.txt";
         const string MENU = "\nМеню:\n1. Добавить перевод\n2. Удалить перевод\n" +
             "3. Изменить перевод\n4. Перевести слово с русского на английский\n" +
@@ -23,6 +24,7 @@
         const string NOT_FIND_TRANSLATE = "Перевод не найден";
         const string ERROR_ADD_TRANSLATE = "Перевод для этого слова уже существует.";
         const string END_MESSAGE = "До свидания!";
+
         static void Main(string[] args)
         {
             LoadTranslations(); 
@@ -33,9 +35,9 @@
             {
                 Console.Write(MENU);
 
-                string choice = Console.ReadLine();
+                string command = Console.ReadLine();
 
-                switch (choice)
+                switch (command)
                 {
                     case "1":
                         AddTranslation();
@@ -68,7 +70,7 @@
 
         static void PrintDictionary()
         {
-            foreach (var str in translations)
+            foreach (KeyValuePair<string, string> str in translations)
             {
                 Console.WriteLine($"{str.Key} - {str.Value}");
             };
@@ -147,7 +149,7 @@
             Console.Write(EN_TO_RU);
             string word = Console.ReadLine().ToLower();
 
-            var translationPair = translations.FirstOrDefault(pair => pair.Value == word);
+            KeyValuePair<string, string> translationPair = translations.FirstOrDefault(pair => pair.Value == word);
 
             if (!string.IsNullOrEmpty(translationPair.Key))
             {
@@ -186,7 +188,7 @@
         {
             using (StreamWriter sw = new StreamWriter(INPUT_FILE))
             {
-                foreach (var word in translations)
+                foreach (KeyValuePair<string, string> word in translations)
                 {
                     sw.WriteLine($"{word.Key} - {word.Value}");
                 }
