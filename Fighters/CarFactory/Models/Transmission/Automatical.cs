@@ -2,8 +2,8 @@
 {
     public class Automatical : ITransmission
     {
-        public string Name { get; } = "Автоматическя";
+        public string Name { get; } = "Автоматическая";
         public int MaxSpeed { get; } = 30;
-        public int minGears { get; } = 2;
+        public int MinGears { get; } = 2;
     }
 }

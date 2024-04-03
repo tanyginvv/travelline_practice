@@ -4,6 +4,6 @@
     {
         public string Name { get;}
         public int MaxSpeed { get;}
-        public int minGears { get;}
+        public int MinGears { get;}
     }
 }

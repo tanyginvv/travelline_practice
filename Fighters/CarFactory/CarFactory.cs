@@ -10,9 +10,15 @@ namespace CarFactory
 {
     public class CarFactory
     {
-        public Car CreateCar(IBrand brand, IModel model, IBodyType bodyType, IEngine engine, ITransmission transmission, ISteeringPosition steering, IColor color)
+        public static Car CreateCar(IBrand brand,
+        IModel model,
+        IBodyType bodyType,
+        IEngine engine,
+        ITransmission transmission,
+        ISteeringPosition steering,
+        IColor color)
         {
             return new Car(brand, model, bodyType, engine, transmission, steering, color);
         }
     }
-}   
+}
