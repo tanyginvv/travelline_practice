@@ -31,10 +31,8 @@ namespace Fighters
                     var defender = orderedFighters[defenderIndex];
 
                     Console.WriteLine($"Боец {attacker.Name} атакует Бойца {defender.Name}");
-
-                    FightAndCheckIfOpponentDead(attacker, defender);
-
-                    if (defender.CurrentHealth <= 0)
+             
+                    if (FightAndCheckIfOpponentDead(attacker, defender))
                     {
                         Console.WriteLine($"Боец {defender.Name} был повержен!");
                         orderedFighters.Remove(defender);
