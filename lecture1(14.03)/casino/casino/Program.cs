@@ -2,22 +2,22 @@
 while (balance > 0)
 {
     Console.WriteLine("Введите ставку");
-    var inp = int.Parse(Console.ReadLine());
+    var bet = int.Parse(Console.ReadLine());
     Random random = new Random();
     int randomNumber = random.Next(1, 20);
-    int[] valid = [18, 19, 20];
+    int[] winningNumbers = [18, 19, 20];
 
-    if (inp <= balance)
+    if (bet <= balance)
     {
-        if (valid.Contains(randomNumber))
+        if (winningNumbers.Contains(randomNumber))
         {
-            int win = (int)(inp * (1 + (0.1 * (randomNumber % 17))));
+            int win = (int)(bet * (1 + (0.1 * (randomNumber % 17))));
             balance += win;
             Console.WriteLine($"Вы выиграли, ваш баланс {balance}");
         }
         else
         {
-            balance -= inp;
+            balance -= bet;
             Console.WriteLine($"Вы проиграли, ваш баланс {balance}");
         }
     }
