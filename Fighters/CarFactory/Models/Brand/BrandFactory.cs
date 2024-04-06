@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.Brand;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.Brand
 {
     public class BrandFactory
     {
@@ -19,6 +17,7 @@ namespace CarFactory.Factories
                     return new Toyota();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные марки автомобилей:");

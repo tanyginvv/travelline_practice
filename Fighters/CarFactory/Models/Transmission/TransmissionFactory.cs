@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.Transmission;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.Transmission
 {
     public class TransmissionFactory
     {
@@ -17,6 +15,7 @@ namespace CarFactory.Factories
                     return new Mechanical();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные типы коробки передач:");

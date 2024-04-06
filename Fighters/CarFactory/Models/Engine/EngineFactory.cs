@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.Engine;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.Engine
 {
     public class EngineFactory
     {
@@ -21,6 +19,7 @@ namespace CarFactory.Factories
                     return new V6();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные типы двигателя:");

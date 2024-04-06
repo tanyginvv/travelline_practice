@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.BodyType;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.BodyType
 {
     public class BodyTypeFactory
     {
@@ -19,6 +17,7 @@ namespace CarFactory.Factories
                     return new SedanBody();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные типы кузова:");

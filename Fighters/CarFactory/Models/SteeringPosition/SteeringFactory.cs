@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.SteeringPosition;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.SteeringPosition
 {
     public class SteeringFactory
     {
@@ -17,6 +15,7 @@ namespace CarFactory.Factories
                     return new LeftPosition();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные положения руля:");

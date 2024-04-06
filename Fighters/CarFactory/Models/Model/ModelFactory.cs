@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.Model;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.Model
 {
     public class ModelFactory
     {
@@ -51,14 +49,14 @@ namespace CarFactory.Factories
             switch (brandChoice)
             {
                 case 1: // Toyota
-                    return ["Camry", "Supra"];
+                    return new List<string> { "Camry", "Supra" };
                 case 2: // Lada
-                    return ["Vesta", "Priora"];
+                    return new List<string> { "Vesta", "Priora" };
                 case 3: // BMW
-                    return ["X5", "M8"];
+                    return new List<string> { "X5", "M8" };
                 default:
                     Console.WriteLine("Некорректный выбор марки. Выбрана марка по умолчанию (Toyota).");
-                    return ["Camry"];
+                    return new List<string> { "Camry" };
             }
         }
 

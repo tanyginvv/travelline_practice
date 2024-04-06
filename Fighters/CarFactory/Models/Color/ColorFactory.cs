@@ -1,6 +1,4 @@
-﻿using CarFactory.Models.Color;
-
-namespace CarFactory.Factories
+﻿namespace CarFactory.Models.Color
 {
     public class ColorFactory
     {
@@ -19,6 +17,7 @@ namespace CarFactory.Factories
                     return new Blue();
             }
         }
+
         public static void PrintAvailableOptions()
         {
             Console.WriteLine("Доступные цвета автомобилей:");

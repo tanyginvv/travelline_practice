@@ -8,18 +8,30 @@ namespace CarFactory
         {
             Console.WriteLine("Добро пожаловать на фабрику машин! Давайте соберем ее для вас!");
 
-            var (brand, model, bodyType, engine, transmission, steering, color) = CarBuilder.BuildCarOptions();
+            while (true)
+            {
+                CarOptions carOptions = CarFactory.BuildCarOptions();
 
-            Car newCar = CarFactory.CreateCar(brand,
-                model,
-                bodyType,
-                engine,
-                transmission,
-                steering,
-                color);
+                if (carOptions != null)
+                {
+                    Car newCar = CarFactory.CreateCar(
+                        carOptions.Brand,
+                        carOptions.Model,
+                        carOptions.BodyType,
+                        carOptions.Engine,
+                        carOptions.Transmission,
+                        carOptions.Steering,
+                        carOptions.Color);
 
-            Console.WriteLine("Новый автомобиль создан:");
-            Console.WriteLine(newCar.ToString());
+                    Console.WriteLine("Новый автомобиль создан:");
+                    Console.WriteLine(newCar.ToString());
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine("Ошибка при сборке автомобиля.");
+                }
+            }
         }
     }
 }
