@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.Model
 {
-    public class ModelFactory
+    public static class ModelFactory
     {
         public static IModel CreateModel(int brandChoice, int modelChoice)
         {

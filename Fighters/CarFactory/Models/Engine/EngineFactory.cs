@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.Engine
 {
-    public class EngineFactory
+    public static class EngineFactory
     {
         public static IEngine CreateEngine(int engineChoice)
         {

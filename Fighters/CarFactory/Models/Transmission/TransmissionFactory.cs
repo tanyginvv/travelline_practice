@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.Transmission
 {
-    public class TransmissionFactory
+    public static class TransmissionFactory
     {
         public static ITransmission CreateTransmission(int transmissionChoice)
         {

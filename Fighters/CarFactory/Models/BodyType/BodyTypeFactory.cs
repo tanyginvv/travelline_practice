@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.BodyType
 {
-    public class BodyTypeFactory
+    public static class BodyTypeFactory
     {
         public static IBodyType CreateBodyType(int bodyTypeChoice)
         {

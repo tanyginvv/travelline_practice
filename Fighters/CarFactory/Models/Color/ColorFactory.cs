@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.Color
 {
-    public class ColorFactory
+    public static class ColorFactory
     {
         public static IColor CreateColor(int colorChoice)
         {

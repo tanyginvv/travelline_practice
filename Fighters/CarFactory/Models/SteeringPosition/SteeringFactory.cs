@@ -1,6 +1,6 @@
 ﻿namespace CarFactory.Models.SteeringPosition
 {
-    public class SteeringFactory
+    public static class SteeringFactory
     {
         public static ISteeringPosition CreateSteering(int steeringChoice)
         {
