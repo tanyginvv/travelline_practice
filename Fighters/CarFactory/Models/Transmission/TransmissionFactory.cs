@@ -16,11 +16,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные типы коробки передач:");
-            Console.WriteLine("1. Механическая");
-            Console.WriteLine("2. Автоматическая");
+            return "Доступные типы коробки передач:\n1. Механическая\n2. Автоматическая";
         }
     }
 }

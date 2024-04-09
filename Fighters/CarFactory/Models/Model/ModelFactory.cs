@@ -1,4 +1,6 @@
-﻿namespace CarFactory.Models.Model
+﻿using System.Text;
+
+namespace CarFactory.Models.Model
 {
     public static class ModelFactory
     {
@@ -44,7 +46,8 @@
                     return new Camry();
             }
         }
-        public static List<string> GetModelsForBrand(int brandChoice)
+
+        private static List<string> GetModelsForBrand(int brandChoice)
         {
             switch (brandChoice)
             {
@@ -60,14 +63,16 @@
             }
         }
 
-        public static void PrintAvailableOptions(int brandChoice)
+        public static string AvailableOptionsToString(int brandChoice)
         {
             List<string> modelsForBrand = GetModelsForBrand(brandChoice);
-            Console.WriteLine("Доступные модели автомобилей:");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.AppendLine("Доступные модели автомобилей:");
             for (int i = 0; i < modelsForBrand.Count; i++)
             {
-                Console.WriteLine($"{i + 1}. {modelsForBrand[i]}");
+                stringBuilder.AppendLine($"{i + 1}. {modelsForBrand[i]}");
             }
+            return stringBuilder.ToString();
         }
     }
 }

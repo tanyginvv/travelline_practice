@@ -6,7 +6,7 @@ using CarFactory.Models.Model;
 using CarFactory.Models.SteeringPosition;
 using CarFactory.Models.Transmission;
 
-namespace CarFactory
+namespace CarFactory.Models.Car
 {
     public class CarOptions
     {

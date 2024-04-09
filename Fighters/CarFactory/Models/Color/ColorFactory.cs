@@ -18,12 +18,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные цвета автомобилей:");
-            Console.WriteLine("1. Красный");
-            Console.WriteLine("2. Синий");
-            Console.WriteLine("3. Зеленый");
+            return "Доступные цвета автомобилей:\n1. Красный\n2. Синий\n3. Зеленый";
         }
     }
 }

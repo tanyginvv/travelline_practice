@@ -1,7 +1,7 @@
-﻿
+﻿using CarFactory.Models.Car;
 
-namespace CarFactory
-{
+namespace CarFactory 
+{ 
     public class Program
     {
         static void Main()
@@ -10,11 +10,11 @@ namespace CarFactory
 
             while (true)
             {
-                CarOptions carOptions = CarFactory.BuildCarOptions();
+                CarOptions carOptions = Models.Car.CarFactory.BuildCarOptions();
 
                 if (carOptions != null)
                 {
-                    Car newCar = CarFactory.CreateCar(
+                    Car newCar = Models.Car.CarFactory.CreateCar(
                         carOptions.Brand,
                         carOptions.Model,
                         carOptions.BodyType,

@@ -18,12 +18,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные типы кузова:");
-            Console.WriteLine("1. Седан");
-            Console.WriteLine("2. Внедорожник");
-            Console.WriteLine("3. Универсал");
+            return "Доступные типы кузова:\n1. Седан\n2. Внедорожник\n3. Универсал";
         }
     }
 }

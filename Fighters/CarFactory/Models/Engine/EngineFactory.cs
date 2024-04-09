@@ -20,13 +20,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные типы двигателя:");
-            Console.WriteLine("1. V1");
-            Console.WriteLine("2. V6");
-            Console.WriteLine("3. V8");
-            Console.WriteLine("4. V12");
+            return "Доступные типы двигателя:\n1. V1\n2. V6\n3. V8\n4. V12";
         }
     }
 }

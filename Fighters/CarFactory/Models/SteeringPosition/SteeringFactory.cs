@@ -16,11 +16,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные положения руля:");
-            Console.WriteLine("1. Левостороннее");
-            Console.WriteLine("2. Правостороннее");
+            return "Доступные положения руля:\n1. Левостороннее\n2. Правостороннее";
         }
     }
 }

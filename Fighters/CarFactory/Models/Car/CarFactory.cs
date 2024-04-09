@@ -6,7 +6,7 @@ using CarFactory.Models.Model;
 using CarFactory.Models.SteeringPosition;
 using CarFactory.Models.Transmission;
 
-namespace CarFactory
+namespace CarFactory.Models.Car
 {
     public static class CarFactory
     {
@@ -17,37 +17,37 @@ namespace CarFactory
             try
             {
                 Console.WriteLine("Выберите марку автомобиля:");
-                BrandFactory.PrintAvailableOptions();
+                Console.WriteLine(BrandFactory.AvailableOptionsToString());
                 int brandChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid brand"));
                 carOptions.Brand = BrandFactory.CreateBrand(brandChoice);
 
                 Console.WriteLine("Выберите модель автомобиля:");
-                ModelFactory.PrintAvailableOptions(brandChoice);
+                Console.WriteLine(ModelFactory.AvailableOptionsToString(brandChoice));
                 int modelChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid model"));
                 carOptions.Model = ModelFactory.CreateModel(brandChoice, modelChoice);
 
                 Console.WriteLine("Выберите тип кузова:");
-                BodyTypeFactory.PrintAvailableOptions();
+                Console.WriteLine(BodyTypeFactory.AvailableOptionsToString());
                 int bodyTypeChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid body type"));
                 carOptions.BodyType = BodyTypeFactory.CreateBodyType(bodyTypeChoice);
 
                 Console.WriteLine("Выберите коробку передач:");
-                TransmissionFactory.PrintAvailableOptions();
+                Console.WriteLine(TransmissionFactory.AvailableOptionsToString());
                 int transmissionChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid transmission"));
                 carOptions.Transmission = TransmissionFactory.CreateTransmission(transmissionChoice);
 
                 Console.WriteLine("Выберите тип двигателя:");
-                EngineFactory.PrintAvailableOptions();
+                Console.WriteLine(EngineFactory.AvailableOptionsToString());
                 int engineChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid engine"));
                 carOptions.Engine = EngineFactory.CreateEngine(engineChoice);
 
                 Console.WriteLine("Выберите цвет автомобиля:");
-                ColorFactory.PrintAvailableOptions();
+                Console.WriteLine(ColorFactory.AvailableOptionsToString());
                 int colorChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid color"));
                 carOptions.Color = ColorFactory.CreateColor(colorChoice);
 
                 Console.WriteLine("Выберите положение руля:");
-                SteeringFactory.PrintAvailableOptions();
+                Console.WriteLine(SteeringFactory.AvailableOptionsToString());
                 int steeringChoice = int.Parse(Console.ReadLine() ?? throw new Exception("Invalid steering"));
                 carOptions.Steering = SteeringFactory.CreateSteering(steeringChoice);
 
@@ -61,13 +61,13 @@ namespace CarFactory
         }
 
         public static Car CreateCar(
-        IBrand brand,
-        IModel model,
-        IBodyType bodyType,
-        IEngine engine,
-        ITransmission transmission,
-        ISteeringPosition steering,
-        IColor color)
+            IBrand brand,
+            IModel model,
+            IBodyType bodyType,
+            IEngine engine,
+            ITransmission transmission,
+            ISteeringPosition steering,
+            IColor color)
         {
             return new Car(brand, model, bodyType, engine, transmission, steering, color);
         }

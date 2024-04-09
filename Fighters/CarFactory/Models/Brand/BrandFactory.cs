@@ -18,12 +18,9 @@
             }
         }
 
-        public static void PrintAvailableOptions()
+        public static string AvailableOptionsToString()
         {
-            Console.WriteLine("Доступные марки автомобилей:");
-            Console.WriteLine("1. Toyota");
-            Console.WriteLine("2. Lada");
-            Console.WriteLine("3. BMW");
+            return "Доступные марки автомобилей:\n1. Toyota\n2. Lada\n3. BMW";
         }
     }
 }
