@@ -1,4 +1,3 @@
-using System.Globalization;
 using Accommodations.Commands;
 using Accommodations.Dto;
 
@@ -53,20 +52,22 @@ public static class AccommodationsProcessor
                 {
                     throw new ArgumentException("Invalid number of arguments for booking.");
                 }
+
                 //tryparse date
                 if (!DateTime.TryParse(parts[3], out startDate))
                 {
-                    throw new ArgumentException("Error start date");
+                    throw new ArgumentException("Error start date. Enter format dd/mm/yyyy");
                 }
 
                 if (!DateTime.TryParse(parts[4], out endDate))
                 {
-                    throw new ArgumentException("Error end date");
+                    throw new ArgumentException("Error end date. Enter format dd/mm/yyyy");
                 }
-                //tryparse currency
+
+                //tryparse currency; add writing enum to exception
                 if (!Enum.TryParse(parts[5], true, out currency))
                 {
-                    throw new ArgumentException($" {parts[5]} is not a member of EnumType CurrencyDto. Enter rub, usd or cny");
+                    throw new ArgumentException($" {parts[5]} is not a member of EnumType CurrencyDto. Enter {string.Join(", ", Enum.GetNames(typeof(CurrencyDto)))}");
                 }             
 
                 BookingDto bookingDto = new()
@@ -89,10 +90,11 @@ public static class AccommodationsProcessor
                 {
                     throw new ArgumentException("Invalid number of arguments for canceling.");
                 }
+
                 //try parse guid
                 if (!Guid.TryParse(parts[1], out bookingId))
                 {
-                    throw new ArgumentException("Error guid");
+                    throw new ArgumentException("Error booking id");
                 }
 
                 CancelBookingCommand cancelCommand = new(_bookingService, bookingId);
@@ -103,16 +105,14 @@ public static class AccommodationsProcessor
 
             case "undo":
                 //check command history
-                if (_executedCommands.Count != 0)
-                {
-                    _executedCommands[s_commandIndex].Undo();
-                    _executedCommands.Remove(s_commandIndex);
-                    s_commandIndex--;
-                    Console.WriteLine("Last command undone.");
-                } else
+                if (_executedCommands.Count == 0)
                 {
                     throw new Exception("The history of commands is empty");
                 }
+                _executedCommands[s_commandIndex].Undo();
+                _executedCommands.Remove(s_commandIndex);
+                s_commandIndex--;
+                Console.WriteLine("Last command undone.");
 
                 break;
             case "find":
@@ -120,10 +120,11 @@ public static class AccommodationsProcessor
                 {
                     throw new ArgumentException("Invalid arguments for 'find'. Expected format: 'find <BookingId>'");
                 }
+
                 //tryparse guid
                 if (!Guid.TryParse(parts[1], out bookingId))
                 {
-                    throw new Exception("Error Guid!");
+                    throw new Exception("Error booking id");
                 }
 
                 FindBookingByIdCommand findCommand = new(_bookingService, bookingId);
@@ -135,15 +136,16 @@ public static class AccommodationsProcessor
                 {
                     throw new ArgumentException("Invalid arguments for 'search'. Expected format: 'search <StartDate> <EndDate> <CategoryName>'");
                 }
+
                 //tryparse date
                 if (!DateTime.TryParse(parts[1], out startDate))
                 {
-                    throw new ArgumentException("Error start date");
+                    throw new ArgumentException("Error start date. Enter format dd/mm/yyyy");
                 }
 
                 if (!DateTime.TryParse(parts[2], out endDate))
                 {
-                    throw new ArgumentException("Error end date");
+                    throw new ArgumentException("Error end date. Enter format dd/mm/yyyy");
                 }
 
                 string categoryName = parts[3];

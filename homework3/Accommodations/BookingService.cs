@@ -91,7 +91,7 @@ public class BookingService : IBookingService
         category.AvailableRooms++;
     }
 
-    private static decimal CalculateDiscount(int userId)
+    private static decimal CalculateDiscount()
     {
         return 0.1m;
     }
@@ -148,7 +148,7 @@ public class BookingService : IBookingService
         //we convert the base rate to the currency that we have chosen, previously there was an entire
         //calculation depending on the ruble rate
         decimal cost = (baseRate / currencyRate) * days;
-        decimal totalCost = cost - cost * CalculateDiscount(userId);
+        decimal totalCost = cost - cost * CalculateDiscount();
         return totalCost;
     }
 }
