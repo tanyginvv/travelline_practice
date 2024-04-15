@@ -113,8 +113,8 @@ public static class AccommodationsProcessor
                 _executedCommands.Remove(s_commandIndex);
                 s_commandIndex--;
                 Console.WriteLine("Last command undone.");
-
                 break;
+
             case "find":
                 if (parts.Length != 2)
                 {
