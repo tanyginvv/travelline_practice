@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.compareJsons = void 0;
+const readFileContent_1 = require("./readFileContent");
 ;
-const compareJsons = (oldJsonContent, newJsonContent) => {
+const compareJsons = (oldJsonPath, newJsonPath) => {
     try {
-        const oldJson = JSON.parse(oldJsonContent);
-        const newJson = JSON.parse(newJsonContent);
+        const oldJson = JSON.parse((0, readFileContent_1.readFileContent)(oldJsonPath));
+        const newJson = JSON.parse((0, readFileContent_1.readFileContent)(newJsonPath));
         const compareObjects = (oldObj, newObj) => {
             const nestedDiff = {};
             const allKeys = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]));
@@ -67,7 +68,7 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
             });
             return nestedDiff;
         };
-        return compareObjects(oldJson, newJson);
+        console.log(JSON.stringify(compareObjects(oldJson, newJson), null, 2));
     }
     catch (error) {
         console.error('Error comparing JSON files:', error);

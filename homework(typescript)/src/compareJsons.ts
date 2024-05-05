@@ -1,11 +1,13 @@
+
+import  {readFileContent} from "./readFileContent";
 interface JsonObject {
     [key: string]: string | number | boolean | undefined | JsonObject ;
 };
 
-export const compareJsons = (oldJsonContent: string, newJsonContent: string) => {
+export const compareJsons = (oldJsonPath: string, newJsonPath: string) => {
     try {
-        const oldJson = JSON.parse(oldJsonContent);
-        const newJson = JSON.parse(newJsonContent);
+        const oldJson = JSON.parse(readFileContent(oldJsonPath));
+        const newJson = JSON.parse(readFileContent(newJsonPath));
 
         const compareObjects = (oldObj: JsonObject, newObj: JsonObject): JsonObject => {
             const nestedDiff: Record<string, JsonObject> = {};
@@ -66,7 +68,7 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
             return nestedDiff;
         };
 
-        return compareObjects(oldJson, newJson);
+        console.log(JSON.stringify(compareObjects(oldJson, newJson), null, 2));
     } catch (error) {
         console.error('Error comparing JSON files:', error);
     };

@@ -1,7 +1,6 @@
 import { program } from 'commander';
 import { parserForHtml } from "./parserForHtml";
 import { compareJsons } from "./compareJsons";
-import { readFileContent } from "./readFileContent";
 
 program
   .command('html-resources')
@@ -13,11 +12,7 @@ program
   .command('json-diff')
   .description('Compares two JSON files and shows the differences')
   .arguments('<oldJsonPath> <newJsonPath>')
-  .action((oldJsonPath: string, newJsonPath: string) => {
-    const oldJsonContent = readFileContent(oldJsonPath);
-    const newJsonContent = readFileContent(newJsonPath);
-    const diff = compareJsons(oldJsonContent, newJsonContent);
-    console.log(JSON.stringify(diff, null, 2));
-  });
+  .action((oldJsonPath: string, newJsonPath: string) => 
+    compareJsons(oldJsonPath, newJsonPath));
 
 program.parse(process.argv);
