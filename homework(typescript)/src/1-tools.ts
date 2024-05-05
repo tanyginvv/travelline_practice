@@ -1,4 +1,4 @@
-const { program } = require('commander');
+import { program } from 'commander';
 import { parserForHtml } from "./parserForHtml";
 import { compareJsons } from "./compareJsons";
 import { readFileContent } from "./readFileContent";
