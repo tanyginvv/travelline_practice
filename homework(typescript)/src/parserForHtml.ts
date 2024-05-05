@@ -8,13 +8,13 @@ export const parserForHtml = (filePath: string) => {
             if (error) {
                 console.error(`${filePath} not found`);
                 return;
-            }
+            };
 
             fs.readFile(filePath, 'utf-8', (err: string, data: string) => {
                 if (err) {
                     console.error(`${filePath} Read file error`);
                     return;
-                }
+                };
 
                 const root = htmlParser.parse(data);
                 const links = root.querySelectorAll(sourceTags);
@@ -25,7 +25,7 @@ export const parserForHtml = (filePath: string) => {
                     const href = link.getAttribute('href') || link.getAttribute('src');
                     if (href) {
                         uniqueLinks.add(href);
-                    }
+                    };
                 });
 
                 console.log("[");
@@ -33,10 +33,10 @@ export const parserForHtml = (filePath: string) => {
                     console.log(`  ${link}`);
                 });
                 console.log("]");
-            })
-        })
+            });
+        });
     } catch (error) {
         console.error(error);
         return;
-    }
-}
+    };
+};

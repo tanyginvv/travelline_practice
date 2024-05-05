@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.compareJsons = void 0;
+;
 const compareJsons = (oldJsonContent, newJsonContent) => {
     try {
         const oldJson = JSON.parse(oldJsonContent);
@@ -25,6 +26,7 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
                             children: childrenDiff
                         };
                     }
+                    ;
                 }
                 else {
                     if (oldValue === newValue) {
@@ -41,7 +43,9 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
                             newValue
                         };
                     }
+                    ;
                 }
+                ;
             });
             Object.keys(newObj).forEach(key => {
                 if (!(key in oldObj)) {
@@ -50,6 +54,7 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
                         newValue: newObj[key]
                     };
                 }
+                ;
             });
             Object.keys(oldObj).forEach(key => {
                 if (!(key in newObj)) {
@@ -58,6 +63,7 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
                         oldValue: oldObj[key]
                     };
                 }
+                ;
             });
             return nestedDiff;
         };
@@ -66,5 +72,6 @@ const compareJsons = (oldJsonContent, newJsonContent) => {
     catch (error) {
         console.error('Error comparing JSON files:', error);
     }
+    ;
 };
 exports.compareJsons = compareJsons;

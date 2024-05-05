@@ -6,5 +6,5 @@ export const readFileContent = (filePath: string) => {
     } catch (error) {
         console.error(`Error reading file ${filePath}:`, error);
         return;
-    }
-}
+    };
+};

@@ -1,6 +1,6 @@
 interface JsonObject {
     [key: string]: string | number | boolean | undefined | JsonObject ;
-}
+};
 
 export const compareJsons = (oldJsonContent: string, newJsonContent: string) => {
     try {
@@ -27,7 +27,7 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
                             type: 'unchanged',
                             children: childrenDiff
                         };
-                    }
+                    };
                 } else {
                     if (oldValue === newValue) {
                         nestedDiff[key] = {
@@ -41,8 +41,8 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
                             oldValue,
                             newValue
                         };
-                    }
-                }
+                    };
+                };
             });
 
             Object.keys(newObj).forEach(key => {
@@ -51,7 +51,7 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
                         type: 'new',
                         newValue: newObj[key]
                     };
-                }
+                };
             });
         
             Object.keys(oldObj).forEach(key => {
@@ -60,7 +60,7 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
                         type: 'delete',
                         oldValue: oldObj[key]
                     };
-                }
+                };
             });
 
             return nestedDiff;
@@ -69,5 +69,5 @@ export const compareJsons = (oldJsonContent: string, newJsonContent: string) => 
         return compareObjects(oldJson, newJson);
     } catch (error) {
         console.error('Error comparing JSON files:', error);
-    }
-}
+    };
+};

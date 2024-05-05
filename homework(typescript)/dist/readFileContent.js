@@ -10,5 +10,6 @@ const readFileContent = (filePath) => {
         console.error(`Error reading file ${filePath}:`, error);
         return;
     }
+    ;
 };
 exports.readFileContent = readFileContent;
