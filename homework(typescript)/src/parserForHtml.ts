@@ -2,41 +2,36 @@ const fs = require('fs');
 const htmlParser = require('node-html-parser');
 const sourceTags = 'link[href], a[href], img[src], script[src]';
 
-export const parserForHtml = (filePath: string) => {
-    try {
-        fs.access(filePath, fs.constants.F_OK, (error: string) => {
-            if (error) {
-                console.error(`${filePath} not found`);
-                return;
-            };
+const parseFile = async (filePath: string): Promise<string> => {
+    const data = await readFile(filePath, 'utf-8');
+    return data;
+};
 
-            fs.readFile(filePath, 'utf-8', (err: string, data: string) => {
-                if (err) {
-                    console.error(`${filePath} Read file error`);
-                    return;
-                };
+const readFile = async (filePath: string, encoding: string): Promise<string> => {
+    const data = await fs.promises.readFile(filePath, encoding);
+    return data;
+};
 
-                const root = htmlParser.parse(data);
-                const links = root.querySelectorAll(sourceTags);
+const extractLinks = (root: Element): Set<string> => {
+    const links = root.querySelectorAll(sourceTags);
 
-                const uniqueLinks = new Set();
+    const uniqueLinks = new Set([...links].map(link => 
+        link.getAttribute('href') || link.getAttribute('src') || '')
+        .filter(href => href !== ''));
+    return uniqueLinks; 
+};
 
-                links.forEach((link: Element) => {
-                    const href = link.getAttribute('href') || link.getAttribute('src');
-                    if (href) {
-                        uniqueLinks.add(href);
-                    };
-                });
+const printLinks = (uniqueLinks: Set<string>) => {
+    console.log("[");
+    uniqueLinks.forEach((link: string) => {
+        console.log(`  ${link}`);
+    });
+    console.log("]");
+};
 
-                console.log("[");
-                uniqueLinks.forEach((link) => {
-                    console.log(`  ${link}`);
-                });
-                console.log("]");
-            });
-        });
-    } catch (error) {
-        console.error(error);
-        return;
-    };
+export const parserForHtml = async (filePath: string) => {
+    const data = await parseFile(filePath);
+    const root = htmlParser.parse(data);
+    const uniqueLinks = extractLinks(root);
+    printLinks(uniqueLinks);     
 };
