@@ -23,9 +23,15 @@ const readFile = (filePath, encoding) => __awaiter(void 0, void 0, void 0, funct
 });
 const extractLinks = (root) => {
     const links = root.querySelectorAll(sourceTags);
-    const uniqueLinks = new Set([...links].map(link => link.getAttribute('href') || link.getAttribute('src') || '')
-        .filter(href => href !== ''));
-    return uniqueLinks;
+    const uniqueLinks = Array.from(links).reduce((acc, link) => {
+        const href = link.getAttribute('href') || link.getAttribute('src');
+        if (href && !acc.includes(href)) {
+            acc.push(href);
+        }
+        ;
+        return acc;
+    }, []);
+    return new Set(uniqueLinks);
 };
 const printLinks = (uniqueLinks) => {
     console.log("[");

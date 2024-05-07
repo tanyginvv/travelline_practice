@@ -15,10 +15,15 @@ const readFile = async (filePath: string, encoding: string): Promise<string> => 
 const extractLinks = (root: Element): Set<string> => {
     const links = root.querySelectorAll(sourceTags);
 
-    const uniqueLinks = new Set([...links].map(link => 
-        link.getAttribute('href') || link.getAttribute('src') || '')
-        .filter(href => href !== ''));
-    return uniqueLinks; 
+    const uniqueLinks = Array.from(links).reduce((acc, link) => {
+        const href = link.getAttribute('href') || link.getAttribute('src');
+        if (href && !acc.includes(href as string)) {
+            acc.push(href as string);
+        };
+        return acc;
+    }, [] as string[]);
+    
+    return new Set(uniqueLinks);  
 };
 
 const printLinks = (uniqueLinks: Set<string>) => {
@@ -30,8 +35,8 @@ const printLinks = (uniqueLinks: Set<string>) => {
 };
 
 export const parserForHtml = async (filePath: string) => {
-    const data = await parseFile(filePath);
-    const root = htmlParser.parse(data);
+    const data: string = await parseFile(filePath);
+    const root: Element = htmlParser.parse(data);
     const uniqueLinks = extractLinks(root);
     printLinks(uniqueLinks);     
 };
