@@ -12,21 +12,21 @@ const readFile = async (filePath: string, encoding: string): Promise<string> => 
     return data;
 };
 
-const extractLinks = (root: Element): Set<string> => {
+const extractLinks = (root: Element): string[] => {
     const links = root.querySelectorAll(sourceTags);
 
-    const uniqueLinks = Array.from(links).reduce((acc, link) => {
+    const uniqueLinks = Array.from(links).reduce<string[]>((acc, link) => {
         const href = link.getAttribute('href') || link.getAttribute('src');
-        if (href && !acc.includes(href as string)) {
-            acc.push(href as string);
+        if (href && !acc.includes(href)) {
+            acc.push(href);
         };
         return acc;
-    }, [] as string[]);
+    }, []);
     
-    return new Set(uniqueLinks);  
+    return uniqueLinks;  
 };
 
-const printLinks = (uniqueLinks: Set<string>) => {
+const printLinks = (uniqueLinks: string[]) => {
     console.log("[");
     uniqueLinks.forEach((link: string) => {
         console.log(`  ${link}`);

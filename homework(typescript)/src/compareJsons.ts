@@ -1,99 +1,112 @@
 import { readFileContent } from "./readFileContent";
 
-interface Object {
+interface JSON {
     [key: string]: ValidType;
 };
 
-type ValidType = string | number | boolean | undefined | Object;
+type ValidType = string | number | boolean | JSON | undefined;
 
-const isObject = (value: ValidType): value is Object => {
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
+const isObject = (value: ValidType): value is JSON => {
+    return typeof value === 'object' && value !== undefined && !Array.isArray(value);
 };
 
-const compareObjectValues = (oldValue: ValidType, newValue: ValidType): Object =>
-    isObject(oldValue) && isObject(newValue) ? compareObjects(oldValue as Object, newValue as Object) : {};
+const compareObjectValues = (oldValue: ValidType, newValue: ValidType): JSON =>
+    isObject(oldValue) && isObject(newValue) ? compareObjects(oldValue, newValue) : {};
 
-const compareArrayValues = (oldValue: ValidType[], newValue: ValidType[]): Record<string, Object> => {
-    return oldValue.map((arrayItem, index) => {
+const compareArrayValues = (oldValue: ValidType[], newValue: ValidType[]): Record<string, JSON> => {
+    return oldValue.reduce((result: Record<string, JSON>, arrayItem: ValidType, index: number) => {
         const newItem = newValue[index];
+
         if (Array.isArray(arrayItem) && Array.isArray(newItem)) {
             return {
+                ...result,
                 [index.toString()]: {
                     type: 'unchanged',
                     children: compareArrayValues(arrayItem, newItem)
                 }
             };
-        } else if (isObject(arrayItem) && isObject(newItem)) {
+        };
+        if (isObject(arrayItem) && isObject(newItem)) {
             return {
+                ...result,
                 [index.toString()]: {
                     type: 'unchanged',
                     children: compareObjectValues(arrayItem, newItem)
                 }
             };
-        } else {
-            return {
-                [index.toString()]: {
-                    type: arrayItem === newItem ? 'unchanged' : 'changed',
-                    oldValue: arrayItem,
-                    newValue: newItem
-                }
-            };
-        }
-    }).reduce((acc, obj) => Object.assign({ ...acc, ...obj }), {});
+        };
+        return {
+            ...result,
+            [index.toString()]: {
+                type: arrayItem === newItem ? 'unchanged' : 'changed',
+                oldValue: arrayItem,
+                newValue: newItem
+            }
+        };
+    }, {});
 };
 
-const compareObjects = (oldObj: Object, newObj: Object): Record<string, Object> => {
-    const allKeys = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]));
+const compareObjects = (oldObj: JSON, newObj: JSON): Record<string, JSON> => {
+    const allKeys: string[] =  Array.from(([...Object.keys(oldObj), ...Object.keys(newObj)]))
 
-    return allKeys.map(key => {
+    return allKeys.reduce((result: Record<string, JSON>, key: string) => {
         const oldValue = oldObj[key];
         const newValue = newObj[key];
 
-        if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+        if (!(key in newObj)) {
             return {
-                [key]: {
-                    type: 'unchanged',
-                    children: compareArrayValues(oldValue, newValue)
-                }
-            };
-        } else if (isObject(oldValue) && isObject(newValue)) {
-                const childrenDiff = compareObjects(oldValue as Object, newValue as Object);
-                return {
-                    [key]: {
-                        type: Object.values(childrenDiff).some(child => child.type !== 'unchanged') ? 'changed' : 'unchanged',
-                        children: childrenDiff
-                    }
-                };
-        } else if (oldValue === undefined && newValue !== undefined) {
-            return {
-                [key]: {
-                    type: 'new',
-                    newValue
-                }
-            };
-        } else if (oldValue !== undefined && newValue === undefined) {
-            return {
+                ...result,
                 [key]: {
                     type: 'delete',
                     oldValue
                 }
             };
-        } else {
-            const valuesChanged = oldValue !== newValue;
+        };       
+
+        if (!(key in oldObj)) {
             return {
+                ...result,
                 [key]: {
-                    type: valuesChanged ? 'changed' : 'unchanged',
-                    oldValue,
+                    type: 'new',
                     newValue
                 }
             };
-        }
-    }).reduce((acc, obj) => Object.assign({ ...acc, ...obj }), {});
+        }; 
+
+        if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+            return {
+                ...result,
+                [key]: {
+                    type: 'unchanged',
+                    children: compareArrayValues(oldValue, newValue)
+                }
+            };
+        };
+        if (isObject(oldValue) && isObject(newValue)) {
+            const childrenDiff = compareObjects(oldValue, newValue);
+            return {
+                ...result,
+                [key]: {
+                    type: Object.values(childrenDiff).some(child => child.type !== 'unchanged') ? 'changed' : 'unchanged',
+                    children: childrenDiff
+                }
+            };
+        };
+
+        return {
+            ...result,
+            [key]: {
+                type: oldValue === newValue ? 'unchanged' : 'changed',
+                oldValue,
+                newValue
+            }
+        };
+    }, {});
 };
 
 export const compareJsons = (oldJsonPath: string, newJsonPath: string) => {
-    const oldJson: Object = JSON.parse(readFileContent(oldJsonPath));
-    const newJson: Object = JSON.parse(readFileContent(newJsonPath));
+    const oldJson: JSON = JSON.parse(readFileContent(oldJsonPath));
+    const newJson: JSON = JSON.parse(readFileContent(newJsonPath));
 
     const diff = compareObjects(oldJson, newJson);
     console.log(JSON.stringify(diff, null, 2));

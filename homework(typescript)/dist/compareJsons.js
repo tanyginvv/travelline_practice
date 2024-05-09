@@ -4,88 +4,73 @@ exports.compareJsons = void 0;
 const readFileContent_1 = require("./readFileContent");
 ;
 const isObject = (value) => {
-    return typeof value === 'object' && value !== null && !Array.isArray(value);
+    return typeof value === 'object' && value !== undefined && !Array.isArray(value);
 };
 const compareObjectValues = (oldValue, newValue) => isObject(oldValue) && isObject(newValue) ? compareObjects(oldValue, newValue) : {};
 const compareArrayValues = (oldValue, newValue) => {
-    return oldValue.map((arrayItem, index) => {
+    return oldValue.reduce((result, arrayItem, index) => {
         const newItem = newValue[index];
         if (Array.isArray(arrayItem) && Array.isArray(newItem)) {
-            return {
-                [index.toString()]: {
+            return Object.assign(Object.assign({}, result), { [index.toString()]: {
                     type: 'unchanged',
                     children: compareArrayValues(arrayItem, newItem)
-                }
-            };
+                } });
         }
-        else if (isObject(arrayItem) && isObject(newItem)) {
-            return {
-                [index.toString()]: {
+        ;
+        if (isObject(arrayItem) && isObject(newItem)) {
+            return Object.assign(Object.assign({}, result), { [index.toString()]: {
                     type: 'unchanged',
                     children: compareObjectValues(arrayItem, newItem)
-                }
-            };
+                } });
         }
-        else {
-            return {
-                [index.toString()]: {
-                    type: arrayItem === newItem ? 'unchanged' : 'changed',
-                    oldValue: arrayItem,
-                    newValue: newItem
-                }
-            };
-        }
-    }).reduce((acc, obj) => Object.assign(Object.assign(Object.assign({}, acc), obj)), {});
+        ;
+        return Object.assign(Object.assign({}, result), { [index.toString()]: {
+                type: arrayItem === newItem ? 'unchanged' : 'changed',
+                oldValue: arrayItem,
+                newValue: newItem
+            } });
+    }, {});
 };
 const compareObjects = (oldObj, newObj) => {
-    const allKeys = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]));
-    return allKeys.map(key => {
+    const allKeys = Array.from(([...Object.keys(oldObj), ...Object.keys(newObj)]));
+    return allKeys.reduce((result, key) => {
         const oldValue = oldObj[key];
         const newValue = newObj[key];
-        if (Array.isArray(oldValue) && Array.isArray(newValue)) {
-            return {
-                [key]: {
-                    type: 'unchanged',
-                    children: compareArrayValues(oldValue, newValue)
-                }
-            };
-        }
-        else if (isObject(oldValue) && isObject(newValue)) {
-            const childrenDiff = compareObjects(oldValue, newValue);
-            return {
-                [key]: {
-                    type: Object.values(childrenDiff).some(child => child.type !== 'unchanged') ? 'changed' : 'unchanged',
-                    children: childrenDiff
-                }
-            };
-        }
-        else if (oldValue === undefined && newValue !== undefined) {
-            return {
-                [key]: {
-                    type: 'new',
-                    newValue
-                }
-            };
-        }
-        else if (oldValue !== undefined && newValue === undefined) {
-            return {
-                [key]: {
+        if (!(key in newObj)) {
+            return Object.assign(Object.assign({}, result), { [key]: {
                     type: 'delete',
                     oldValue
-                }
-            };
+                } });
         }
-        else {
-            const valuesChanged = oldValue !== newValue;
-            return {
-                [key]: {
-                    type: valuesChanged ? 'changed' : 'unchanged',
-                    oldValue,
+        ;
+        if (!(key in oldObj)) {
+            return Object.assign(Object.assign({}, result), { [key]: {
+                    type: 'new',
                     newValue
-                }
-            };
+                } });
         }
-    }).reduce((acc, obj) => Object.assign(Object.assign(Object.assign({}, acc), obj)), {});
+        ;
+        if (Array.isArray(oldValue) && Array.isArray(newValue)) {
+            return Object.assign(Object.assign({}, result), { [key]: {
+                    type: 'unchanged',
+                    children: compareArrayValues(oldValue, newValue)
+                } });
+        }
+        ;
+        if (isObject(oldValue) && isObject(newValue)) {
+            const childrenDiff = compareObjects(oldValue, newValue);
+            return Object.assign(Object.assign({}, result), { [key]: {
+                    type: Object.values(childrenDiff).some(child => child.type !== 'unchanged') ? 'changed' : 'unchanged',
+                    children: childrenDiff
+                } });
+        }
+        ;
+        return Object.assign(Object.assign({}, result), { [key]: {
+                type: oldValue === newValue ? 'unchanged' : 'changed',
+                oldValue,
+                newValue
+            } });
+    }, {});
 };
 const compareJsons = (oldJsonPath, newJsonPath) => {
     const oldJson = JSON.parse((0, readFileContent_1.readFileContent)(oldJsonPath));

@@ -31,7 +31,7 @@ const extractLinks = (root) => {
         ;
         return acc;
     }, []);
-    return new Set(uniqueLinks);
+    return uniqueLinks;
 };
 const printLinks = (uniqueLinks) => {
     console.log("[");
