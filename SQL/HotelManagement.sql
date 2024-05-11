@@ -4,54 +4,54 @@ use HotelManagement
 --Создание таблицы Rooms
 IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'Rooms')
 	CREATE TABLE dbo.Rooms(
-	 room_id INT IDENTITY(1,1) NOT NULL,
-	 room_number INT NOT NULL,
-	 room_type NVARCHAR(50) NOT NULL,
-	 price_per_night MONEY NOT NULL,
-	 availability BIT NOT NULL,
-	 CONSTRAINT PK_rooms_id_room PRIMARY KEY(room_id)
+			 room_id INT IDENTITY(1,1) NOT NULL,
+			 room_number INT NOT NULL,
+			 room_type NVARCHAR(20) NOT NULL,
+			 price_per_night MONEY NOT NULL,
+			 availability BIT NOT NULL,
+			 CONSTRAINT PK_rooms_id_room PRIMARY KEY(room_id)
 	)
 --Создание таблицы Customers
 IF NOT EXISTS ( SELECT * FROM sysobjects WHERE name ='Customers')
 	CREATE TABLE dbo.Customers(
-	 customer_id INT IDENTITY(1,1) NOT NULL,
-	 first_name NVARCHAR(50) NOT NULL,
-	 last_name NVARCHAR(50) NOT NULL,
-	 email NVARCHAR(50) NOT NULL,
-     phone_number NVARCHAR(50) NOT NULL,
-	 CONSTRAINT PK_customers_id_customer PRIMARY KEY(customer_id)
+			 customer_id INT IDENTITY(1,1) NOT NULL,
+			 first_name NVARCHAR(20) NOT NULL,
+			 last_name NVARCHAR(20) NOT NULL,
+			 email NVARCHAR(20) NOT NULL,
+			 phone_number NVARCHAR(20) NOT NULL,
+			 CONSTRAINT PK_customers_id_customer PRIMARY KEY(customer_id)
 	)
 --Создание таблицы Bookings
 IF NOT EXISTS ( SELECT * FROM sys.objects WHERE name ='Bookings')
 	CREATE TABLE dbo.Bookings(
-	 booking_id INT IDENTITY(1,1) NOT NULL,
-	 customer_id INT NOT NULL,
-	 room_id INT NOT NULL,
-	 check_in_date DATE NOT NULL,
-     check_out_date DATE NOT NULL,
-	 CONSTRAINT PK_bookings_id_booking PRIMARY KEY(booking_id),
-	 CONSTRAINT FK_bookings_id_customer
-		FOREIGN KEY (customer_id) REFERENCES dbo.Customers (customer_id),
-	 CONSTRAINT FK_bookings_id_room
-		FOREIGN KEY (room_id) REFERENCES dbo.Rooms (room_id)
+			 booking_id INT IDENTITY(1,1) NOT NULL,
+			 customer_id INT NOT NULL,
+			 room_id INT NOT NULL,
+			 check_in_date DATE NOT NULL,
+			 check_out_date DATE NOT NULL,
+			 CONSTRAINT PK_bookings_id_booking PRIMARY KEY(booking_id),
+			 CONSTRAINT FK_bookings_id_customer
+				FOREIGN KEY (customer_id) REFERENCES dbo.Customers (customer_id),
+			 CONSTRAINT FK_bookings_id_room
+				FOREIGN KEY (room_id) REFERENCES dbo.Rooms (room_id)
 	)
 --Создание таблицы Facilities
 IF NOT EXISTS ( SELECT * FROM sysobjects WHERE name ='Facilities')
 	CREATE TABLE dbo.Facilities(
-	 facility_id INT IDENTITY(1,1) NOT NULL,
-	 facility_name NVARCHAR(200) NOT NULL,
-	 CONSTRAINT PK_facilities_id_facility PRIMARY KEY(facility_id)
+			 facility_id INT IDENTITY(1,1) NOT NULL,
+			 facility_name NVARCHAR(30) NOT NULL,
+			 CONSTRAINT PK_facilities_id_facility PRIMARY KEY(facility_id)
 	)
 --Создание таблицы RoomToFacilities
 IF NOT EXISTS ( SELECT * FROM sysobjects WHERE name ='RoomToFacilities')
 	CREATE TABLE dbo.RoomToFacilities(
-	 room_id INT NOT NULL,
-	 facility_id INT NOT NULL,
-	 CONSTRAINT PK_roomToFacilities_id_roomToFacilities PRIMARY KEY(room_id, facility_id),
-	 CONSTRAINT FK_roomToFacilities_id_room
-		FOREIGN KEY (room_id) REFERENCES dbo.Rooms(room_id),
-	 CONSTRAINT FK_roomToFacilities_id_facilities
-		FOREIGN KEY (facility_id) REFERENCES dbo.Facilities(facility_id)
+			 room_id INT NOT NULL,
+			 facility_id INT NOT NULL,
+			 CONSTRAINT PK_roomToFacilities_id_roomToFacilities PRIMARY KEY(room_id, facility_id),
+			 CONSTRAINT FK_roomToFacilities_id_room
+				FOREIGN KEY (room_id) REFERENCES dbo.Rooms(room_id),
+			 CONSTRAINT FK_roomToFacilities_id_facilities
+				FOREIGN KEY (facility_id) REFERENCES dbo.Facilities(facility_id)
 	)
 
 -- Добавление данных в таблицу "Rooms" availability 1-true доступен 0-false недоступен
@@ -159,7 +159,7 @@ VALUES
 SELECT * FROM Rooms
 WHERE room_id NOT IN (
     SELECT room_id FROM Bookings
-    WHERE '2024-04-04' NOT BETWEEN check_in_date AND check_out_date 
+    WHERE GETDATE() NOT BETWEEN check_in_date AND check_out_date 
 ) AND availability = 1;
 
 --Найдите всех клиентов, чьи фамилии начинаются с буквы "S".
@@ -169,11 +169,7 @@ WHERE SUBSTRING(last_name, 1, 1) = 'S'
 --Найдите все бронирования для определенного клиента (по имени или электронному адресу).
 SELECT * FROM Bookings b
 JOIN  Customers as c ON b.customer_id = c.customer_id
-WHERE c.first_name = N'Иван'
-
-SELECT * FROM Bookings b
-JOIN  Customers as c ON b.customer_id = c.customer_id
-WHERE c.email = 'dmitry@example.com'
+WHERE c.first_name = N'Дмитрий' OR c.email = 'dmitry@example.com'
 
 --Найдите все бронирования для определенного номера.
 SELECT * FROM Bookings b
