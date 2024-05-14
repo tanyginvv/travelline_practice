@@ -398,10 +398,6 @@ textarea {
   width: 110px;
 }
 
-.request-post-body {
-  display: flex;
-}
-
 .request-post {
   height: 50px;
 }
@@ -410,11 +406,6 @@ textarea {
   height: 100px;
   width: 1240px;
   margin: 10px 10px 10px 10px;
-}
-
-.execute-users-by-id {
-  display: none;
-  flex-direction: column;
 }
 
 .route-delete {
@@ -475,10 +466,6 @@ textarea {
 .route-get-users .route-header-menu {
   border-color: #61affe; 
 }
-.executeUsersById {
-  display: flex;
-  flex-direction: column;
-}
 
 .route-get-users-by-mail {
   background: #86c3ff5e;
@@ -500,7 +487,16 @@ textarea {
 .route-get-users-by-mail .route-header-menu {
   border-color: #61affe; 
 }
-.executeUsersByMail {
+
+
+.execute {
   display: flex;
   flex-direction: column;
+}
+.delete-response {
+  display: none;
+}
+
+.put-response {
+  display: none;
 }
