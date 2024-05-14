@@ -1,7 +1,6 @@
 {
   "name": "typescripthw",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
@@ -16,5 +15,9 @@
   "dependencies": {
     "commander": "^12.0.0",
     "node-html-parser": "^6.1.13"
-  }
+  },
+  "directories": {
+    "example": "examples"
+  },
+  "description": ""
 }

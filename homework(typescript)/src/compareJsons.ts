@@ -1,5 +1,4 @@
-import { readFileContent } from "./readFileContent";
-
+const fs = require('fs');
 interface JSON {
     [key: string]: ValidType;
 };
@@ -10,48 +9,12 @@ const isObject = (value: ValidType): value is JSON => {
     return typeof value === 'object' && value !== undefined && !Array.isArray(value);
 };
 
-const compareObjectValues = (oldValue: ValidType, newValue: ValidType): JSON =>
-    isObject(oldValue) && isObject(newValue) ? compareObjects(oldValue, newValue) : {};
-
-const compareArrayValues = (oldValue: ValidType[], newValue: ValidType[]): Record<string, JSON> => {
-    return oldValue.reduce((result: Record<string, JSON>, arrayItem: ValidType, index: number) => {
-        const newItem = newValue[index];
-
-        if (Array.isArray(arrayItem) && Array.isArray(newItem)) {
-            return {
-                ...result,
-                [index.toString()]: {
-                    type: 'unchanged',
-                    children: compareArrayValues(arrayItem, newItem)
-                }
-            };
-        };
-        if (isObject(arrayItem) && isObject(newItem)) {
-            return {
-                ...result,
-                [index.toString()]: {
-                    type: 'unchanged',
-                    children: compareObjectValues(arrayItem, newItem)
-                }
-            };
-        };
-        return {
-            ...result,
-            [index.toString()]: {
-                type: arrayItem === newItem ? 'unchanged' : 'changed',
-                oldValue: arrayItem,
-                newValue: newItem
-            }
-        };
-    }, {});
-};
-
-const compareObjects = (oldObj: JSON, newObj: JSON): Record<string, JSON> => {
-    const allKeys: string[] =  Array.from(([...Object.keys(oldObj), ...Object.keys(newObj)]))
+const compareObjects = (oldObj: Record<string, JSON>, newObj: Record<string, JSON>): Record<string, JSON> => {
+    const allKeys: string[] =  [...Object.keys(oldObj), ...Object.keys(newObj)];
 
     return allKeys.reduce((result: Record<string, JSON>, key: string) => {
-        const oldValue = oldObj[key];
-        const newValue = newObj[key];
+        const oldValue: JSON = oldObj[key];
+        const newValue: JSON = newObj[key];
 
         if (!(key in newObj)) {
             return {
@@ -78,12 +41,13 @@ const compareObjects = (oldObj: JSON, newObj: JSON): Record<string, JSON> => {
                 ...result,
                 [key]: {
                     type: 'unchanged',
-                    children: compareArrayValues(oldValue, newValue)
+                    children: compareObjects(oldValue as Record<string,JSON>, newValue as Record<string,JSON>)
                 }
             };
         };
+
         if (isObject(oldValue) && isObject(newValue)) {
-            const childrenDiff = compareObjects(oldValue, newValue);
+            const childrenDiff = compareObjects(oldValue as Record<string,JSON>, newValue as Record<string,JSON>);
             return {
                 ...result,
                 [key]: {
@@ -104,9 +68,9 @@ const compareObjects = (oldObj: JSON, newObj: JSON): Record<string, JSON> => {
     }, {});
 };
 
-export const compareJsons = (oldJsonPath: string, newJsonPath: string) => {
-    const oldJson: JSON = JSON.parse(readFileContent(oldJsonPath));
-    const newJson: JSON = JSON.parse(readFileContent(newJsonPath));
+export const compareJsons = async (oldJsonPath: string, newJsonPath: string) => {
+    const oldJson: Record<string, JSON> = await JSON.parse(fs.readFileSync(oldJsonPath, 'utf-8'));
+    const newJson: Record<string, JSON> = await JSON.parse(fs.readFileSync(newJsonPath, 'utf-8'));
 
     const diff = compareObjects(oldJson, newJson);
     console.log(JSON.stringify(diff, null, 2));

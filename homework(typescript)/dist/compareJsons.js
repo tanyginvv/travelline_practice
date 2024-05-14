@@ -1,38 +1,22 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.compareJsons = void 0;
-const readFileContent_1 = require("./readFileContent");
+const fs = require('fs');
 ;
 const isObject = (value) => {
     return typeof value === 'object' && value !== undefined && !Array.isArray(value);
 };
-const compareObjectValues = (oldValue, newValue) => isObject(oldValue) && isObject(newValue) ? compareObjects(oldValue, newValue) : {};
-const compareArrayValues = (oldValue, newValue) => {
-    return oldValue.reduce((result, arrayItem, index) => {
-        const newItem = newValue[index];
-        if (Array.isArray(arrayItem) && Array.isArray(newItem)) {
-            return Object.assign(Object.assign({}, result), { [index.toString()]: {
-                    type: 'unchanged',
-                    children: compareArrayValues(arrayItem, newItem)
-                } });
-        }
-        ;
-        if (isObject(arrayItem) && isObject(newItem)) {
-            return Object.assign(Object.assign({}, result), { [index.toString()]: {
-                    type: 'unchanged',
-                    children: compareObjectValues(arrayItem, newItem)
-                } });
-        }
-        ;
-        return Object.assign(Object.assign({}, result), { [index.toString()]: {
-                type: arrayItem === newItem ? 'unchanged' : 'changed',
-                oldValue: arrayItem,
-                newValue: newItem
-            } });
-    }, {});
-};
 const compareObjects = (oldObj, newObj) => {
-    const allKeys = Array.from(([...Object.keys(oldObj), ...Object.keys(newObj)]));
+    const allKeys = [...Object.keys(oldObj), ...Object.keys(newObj)];
     return allKeys.reduce((result, key) => {
         const oldValue = oldObj[key];
         const newValue = newObj[key];
@@ -53,7 +37,7 @@ const compareObjects = (oldObj, newObj) => {
         if (Array.isArray(oldValue) && Array.isArray(newValue)) {
             return Object.assign(Object.assign({}, result), { [key]: {
                     type: 'unchanged',
-                    children: compareArrayValues(oldValue, newValue)
+                    children: compareObjects(oldValue, newValue)
                 } });
         }
         ;
@@ -72,10 +56,10 @@ const compareObjects = (oldObj, newObj) => {
             } });
     }, {});
 };
-const compareJsons = (oldJsonPath, newJsonPath) => {
-    const oldJson = JSON.parse((0, readFileContent_1.readFileContent)(oldJsonPath));
-    const newJson = JSON.parse((0, readFileContent_1.readFileContent)(newJsonPath));
+const compareJsons = (oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () {
+    const oldJson = yield JSON.parse(fs.readFileSync(oldJsonPath, 'utf-8'));
+    const newJson = yield JSON.parse(fs.readFileSync(newJsonPath, 'utf-8'));
     const diff = compareObjects(oldJson, newJson);
     console.log(JSON.stringify(diff, null, 2));
-};
+});
 exports.compareJsons = compareJsons;
