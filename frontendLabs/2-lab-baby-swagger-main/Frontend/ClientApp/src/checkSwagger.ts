@@ -26,10 +26,10 @@ const makeResponse = async (route: Route) => {
 
     const responseData = await response.json(); 
       
-    const responseUrlResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-url-result`); 
-    const responseCodeResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-code-result`);
-    const responseBodyResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-body-result`);
-    const responseHeadersResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-headers-result`);
+    const responseUrlResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-url-result`); 
+    const responseCodeResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-code-result`);
+    const responseBodyResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-body-result`);
+    const responseHeadersResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-headers-result`);
 
     if (responseUrlResult) {
         responseUrlResult.innerHTML = `${response.url}`;
@@ -53,9 +53,9 @@ const makeResponse = async (route: Route) => {
 };
 
 export const checkUserActions = (node: Element, route: Route) => {
-    const menuButton = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-user`);
+    const menuButton = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user`);
     const menu = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-menu`);
-    const arrow = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .${route.method.toLowerCase() + getParameterTypesString(route)}-user .arrow`); 
+    const arrow = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user .arrow`); 
 
     if (menuButton && menu) {
         menuButton.addEventListener("click", () => {
