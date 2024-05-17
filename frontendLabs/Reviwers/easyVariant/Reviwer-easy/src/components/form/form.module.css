@@ -1,0 +1,93 @@
+.formBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 550px;
+    min-height: 481px;
+    border: solid;
+    border-width: 1px;
+    border-color: #DCDCDC;
+    border-radius: 20px;
+    height: 100%;
+}
+
+.formHeader {
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 29px;
+    letter-spacing: 0.015em;
+    text-align: left;
+    width: 385px;
+    height: 58px;
+    margin-top: 25px;
+}
+
+.buttonPanel {
+    margin-top: 25px;
+    width: 383px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.submitButton {
+    width: 136px;
+    height: 32px;
+    background-color: #1E65B7;
+    color: #FFFFFF;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 300;
+    letter-spacing: 0.015em;
+    align-items: end;
+}
+
+.submitButton:disabled {
+    background-color: #C0C0C0;
+}
+
+.data {
+    margin-top: 50px;
+}
+
+.submitedData {
+    width: 550px;
+    height: 181px;
+    display: flex;
+    flex-direction: row;
+}
+
+.dataImg {
+    width: 50px;
+    height: 50px;
+}
+
+.dataInfo {
+    display: flex;
+    flex-direction: row;
+    width: 550px;
+}
+
+.infoStar {
+    margin: 10px 0 0 12px;
+    color: #404040;
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.infoName {
+    width: 451px;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.infoReview {
+    text-align: left;
+    margin: 0  70px;
+    color: #404040;
+    font-size: 14px;
+    width: 451px;
+    overflow-wrap: break-word;
+}

@@ -1,0 +1,8 @@
+.buttonPanel {
+    width: 383px;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 18px;
+}
