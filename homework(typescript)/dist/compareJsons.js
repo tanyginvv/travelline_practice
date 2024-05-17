@@ -9,11 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.compareJsons = void 0;
+exports.compareJsonsResult = void 0;
 const fs = require('fs');
-;
 const isObject = (value) => {
-    return typeof value === 'object' && value !== undefined && !Array.isArray(value);
+    return typeof value === 'object' && value !== null;
 };
 const compareObjects = (oldObj, newObj) => {
     const allKeys = [...Object.keys(oldObj), ...Object.keys(newObj)];
@@ -34,13 +33,6 @@ const compareObjects = (oldObj, newObj) => {
                 } });
         }
         ;
-        if (Array.isArray(oldValue) && Array.isArray(newValue)) {
-            return Object.assign(Object.assign({}, result), { [key]: {
-                    type: 'unchanged',
-                    children: compareObjects(oldValue, newValue)
-                } });
-        }
-        ;
         if (isObject(oldValue) && isObject(newValue)) {
             const childrenDiff = compareObjects(oldValue, newValue);
             return Object.assign(Object.assign({}, result), { [key]: {
@@ -56,10 +48,9 @@ const compareObjects = (oldObj, newObj) => {
             } });
     }, {});
 };
-const compareJsons = (oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () {
+const compareJsonsResult = (oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () {
     const oldJson = yield JSON.parse(fs.readFileSync(oldJsonPath, 'utf-8'));
     const newJson = yield JSON.parse(fs.readFileSync(newJsonPath, 'utf-8'));
-    const diff = compareObjects(oldJson, newJson);
-    console.log(JSON.stringify(diff, null, 2));
+    return compareObjects(oldJson, newJson);
 });
-exports.compareJsons = compareJsons;
+exports.compareJsonsResult = compareJsonsResult;

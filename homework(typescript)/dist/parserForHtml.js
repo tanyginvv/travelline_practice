@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.parserForHtml = void 0;
+exports.parserForHtmlResult = void 0;
 const fs = require('fs');
 const htmlParser = require('node-html-parser');
 const sourceTags = 'link[href], a[href], img[src], script[src]';
@@ -21,11 +21,10 @@ const extractLinks = (root) => {
     }, []);
     return uniqueLinks;
 };
-const parserForHtml = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
+const parserForHtmlResult = (filePath) => __awaiter(void 0, void 0, void 0, function* () {
     const data = yield fs.readFileSync(filePath, 'utf-8');
     ;
     const root = htmlParser.parse(data);
-    const uniqueLinks = extractLinks(root);
-    console.log(uniqueLinks);
+    return extractLinks(root);
 });
-exports.parserForHtml = parserForHtml;
+exports.parserForHtmlResult = parserForHtmlResult;

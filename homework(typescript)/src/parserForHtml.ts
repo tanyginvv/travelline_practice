@@ -13,9 +13,8 @@ const extractLinks = (root: Element): string[] => {
     return uniqueLinks;  
 };
 
-export const parserForHtml = async (filePath: string) => {
+export const parserForHtmlResult = async (filePath: string) : Promise<string[]> => {
     const data: string = await fs.readFileSync(filePath, 'utf-8');;
     const root: Element = htmlParser.parse(data);
-    const uniqueLinks = extractLinks(root);
-    console.log(uniqueLinks);    
+    return extractLinks(root);    
 };
