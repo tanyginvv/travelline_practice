@@ -21,5 +21,5 @@ commander_1.program
     .command('json-diff')
     .description('Compares two JSON files and shows the differences')
     .arguments('<oldJsonPath> <newJsonPath>')
-    .action((oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () { return console.log(yield (0, compareJsons_1.compareJsonsResult)(oldJsonPath, newJsonPath)); }));
+    .action((oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () { return console.log(JSON.stringify(yield (0, compareJsons_1.compareJsonsResult)(oldJsonPath, newJsonPath), null, 2)); }));
 commander_1.program.parse(process.argv);

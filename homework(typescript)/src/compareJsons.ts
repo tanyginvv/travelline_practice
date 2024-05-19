@@ -1,8 +1,9 @@
 const fs = require('fs');
+
 type JsonObject = Record<string, unknown>;
 
 type Result = Record<string, {
-    type: `unchanged` | `new` | `changed` | `delete`,
+    type: 'unchanged' | 'new' | 'changed' | 'delete',
     newValue?: unknown,
     oldValue?: unknown,
     children?: Result
@@ -11,10 +12,11 @@ type Result = Record<string, {
 const isObject = (value: unknown): value is JsonObject => {
     return typeof value === 'object' && value !== null;
 };
-const compareObjects = (oldObj: JsonObject, newObj: JsonObject): Result => {
-    const allKeys: string[] =  [...Object.keys(oldObj), ...Object.keys(newObj)];
 
-    return allKeys.reduce<Result>((result, key)  => {
+const compareObjects = (oldObj: JsonObject, newObj: JsonObject): Result => {
+    const allKeys: string[] = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]));
+
+    return allKeys.reduce<Result>((result, key) => {
         const oldValue = oldObj[key];
         const newValue = newObj[key];
 
@@ -61,8 +63,8 @@ const compareObjects = (oldObj: JsonObject, newObj: JsonObject): Result => {
 };
 
 export const compareJsonsResult = async (oldJsonPath: string, newJsonPath: string) => {
-    const oldJson: JsonObject = await JSON.parse(fs.readFileSync(oldJsonPath, 'utf-8'));
-    const newJson: JsonObject = await JSON.parse(fs.readFileSync(newJsonPath, 'utf-8'));
+    const oldJson: JsonObject = JSON.parse(await fs.promises.readFile(oldJsonPath, 'utf-8'));
+    const newJson: JsonObject = JSON.parse(await fs.promises.readFile(newJsonPath, 'utf-8'));
 
     return compareObjects(oldJson, newJson);
 };

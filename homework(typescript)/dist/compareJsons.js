@@ -15,7 +15,7 @@ const isObject = (value) => {
     return typeof value === 'object' && value !== null;
 };
 const compareObjects = (oldObj, newObj) => {
-    const allKeys = [...Object.keys(oldObj), ...Object.keys(newObj)];
+    const allKeys = Array.from(new Set([...Object.keys(oldObj), ...Object.keys(newObj)]));
     return allKeys.reduce((result, key) => {
         const oldValue = oldObj[key];
         const newValue = newObj[key];
@@ -25,14 +25,12 @@ const compareObjects = (oldObj, newObj) => {
                     oldValue
                 } });
         }
-        ;
         if (!(key in oldObj)) {
             return Object.assign(Object.assign({}, result), { [key]: {
                     type: 'new',
                     newValue
                 } });
         }
-        ;
         if (isObject(oldValue) && isObject(newValue)) {
             const childrenDiff = compareObjects(oldValue, newValue);
             return Object.assign(Object.assign({}, result), { [key]: {
@@ -40,7 +38,6 @@ const compareObjects = (oldObj, newObj) => {
                     children: childrenDiff
                 } });
         }
-        ;
         return Object.assign(Object.assign({}, result), { [key]: {
                 type: oldValue === newValue ? 'unchanged' : 'changed',
                 oldValue,
@@ -49,8 +46,8 @@ const compareObjects = (oldObj, newObj) => {
     }, {});
 };
 const compareJsonsResult = (oldJsonPath, newJsonPath) => __awaiter(void 0, void 0, void 0, function* () {
-    const oldJson = yield JSON.parse(fs.readFileSync(oldJsonPath, 'utf-8'));
-    const newJson = yield JSON.parse(fs.readFileSync(newJsonPath, 'utf-8'));
+    const oldJson = JSON.parse(yield fs.promises.readFile(oldJsonPath, 'utf-8'));
+    const newJson = JSON.parse(yield fs.promises.readFile(newJsonPath, 'utf-8'));
     return compareObjects(oldJson, newJson);
 });
 exports.compareJsonsResult = compareJsonsResult;
