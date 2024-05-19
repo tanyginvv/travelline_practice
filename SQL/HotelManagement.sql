@@ -76,6 +76,7 @@ VALUES
 -- Добавление данных в таблицу "Customers"
 INSERT INTO Customers (first_name, last_name, email, phone_number)
 VALUES
+    (N'Sergey', N'Sergeev', N'sergey@example.com', '+7 912 345-67-89'),
     (N'Иван', N'Иванов', N'ivan@example.com', '+7 912 345-67-89'),
     (N'Петр', N'Петров', N'petr@example.com', '+7 912 345-67-90'),
     (N'Мария', N'Сидорова', N'maria@example.com', '+7 912 345-67-91'),
