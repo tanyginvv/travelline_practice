@@ -215,3 +215,4 @@ sdb/
 # Visual Studio Code
 .vscode/
 *.vscode/
+dist/
