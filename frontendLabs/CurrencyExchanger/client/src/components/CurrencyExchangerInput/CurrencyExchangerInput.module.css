@@ -1,0 +1,58 @@
+.exchangerInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputIn {
+   font-size: 14px; 
+   color: #808080; 
+   height: 5px;
+}
+
+.inputOut {
+    color: #000000;
+    font-size: 30px;  
+    height: 35px; 
+}
+
+.inputDate {
+    color: #808080;
+    font-size: 12px;
+}
+
+.inForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 350px;
+    height: 35px;
+    border: solid;
+    border-color: #808080;
+    border-radius: 5px;
+    border-width: 1px;
+}
+
+.inFormValue {
+    margin-top: 5px;
+    width: 50px;
+    height: 20px;
+    border: none;
+    border-right: solid;
+    border-width: 1px;
+    border-color: #808080;
+    padding-left: 10px;
+}
+
+.inFormSelect {
+    border: none;
+    width: 270px;
+    padding: 0 0 0 20px;
+}
+
+.inFormValue:focus,
+.inFormSelect:focus {
+    outline: none; 
+}

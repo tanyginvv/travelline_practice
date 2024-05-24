@@ -1,0 +1,21 @@
+.currenciesInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoPaymentCurrency {
+    margin-left: 25px;
+    display: flex;
+    flex-direction: column;
+    width : 700px;
+}
+
+.infoHeader {
+    height: 6px;
+    text-align: left;
+}
+
+.infoDescription {
+    text-align: left;
+    color: #808080;
+}
