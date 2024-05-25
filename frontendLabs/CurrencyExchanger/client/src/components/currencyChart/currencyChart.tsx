@@ -1,17 +1,17 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import { format, isValid } from 'date-fns';
+import { format, isValid, subMinutes } from 'date-fns';
 import { CurrencyContext } from '../../Context/CurrencyContext';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 const timeIntervals = [
-    { label: '5 min', value: 5, points: 30 },
-    { label: '4 min', value: 4, points: 24 },
-    { label: '3 min', value: 3, points: 18 },
-    { label: '2 min', value: 2, points: 12 },
-    { label: '1 min', value: 1, points: 6 },
+    { label: '5 min', value: 5 },
+    { label: '4 min', value: 4 },
+    { label: '3 min', value: 3 },
+    { label: '2 min', value: 2 },
+    { label: '1 min', value: 1 },
 ];
 
 export const CurrencyChart: React.FC = () => {
@@ -22,12 +22,19 @@ export const CurrencyChart: React.FC = () => {
         throw new Error("CurrencyExchangeRateChart must be used within a CurrencyProvider");
     }
 
-    const { exchangeRateHistory, inCurrency, outCurrency } = context;
+    const { exchangeRateHistory, inCurrency, outCurrency, fetchExchangeRate, setExchangeRateHistory } = context;
 
-    const selectedIntervalData = timeIntervals.find(interval => interval.value === selectedInterval);
-    const numberOfPoints = selectedIntervalData ? selectedIntervalData.points : 30;
+    useEffect(() => {
+        fetchExchangeRate();
+    }, [selectedInterval, inCurrency, outCurrency, setExchangeRateHistory]);
 
-    const filteredHistory = exchangeRateHistory.slice(-numberOfPoints);
+
+    const startTime = subMinutes(new Date(), selectedInterval);
+
+    const filteredHistory = exchangeRateHistory.filter(item => {
+        const date = new Date(item.date);
+        return isValid(date) && date >= startTime;
+    });
 
     const data = {
         labels: filteredHistory.map(item => {

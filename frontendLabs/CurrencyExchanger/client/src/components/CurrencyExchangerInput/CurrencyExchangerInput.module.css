@@ -60,11 +60,24 @@
 }
 
 .inFormValue:focus,
-.inFormSelect:focus {
+.inFormSelect:focus,
+.saveFiltersBtn:focus {
     outline: none; 
 }
 
 .currencyGraphic {
     width: 450px;
     margin: 0 40px 0 40px;
+}
+
+.saveFiltersBtn {
+    background-color: #0000BA;
+    color: #FFFFFF;
+    width: 150px;
+    margin: 10px 0 0 0;
+}
+
+.saveFiltersBtn:hover {
+    background-color: #FFFFFF;
+    color: #0000BA;
 }

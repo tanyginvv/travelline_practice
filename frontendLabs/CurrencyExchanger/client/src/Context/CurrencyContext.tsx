@@ -1,12 +1,8 @@
-import { createContext, useState, ReactNode, FC, useLayoutEffect, useEffect } from 'react';
-import { Currency, CurrencyContextProps, ExchangeRateEntry } from '../types/currencies';
-import loadingImg from '../assets/loading-thinking.gif'
+import { createContext, useState, FC, useLayoutEffect, useEffect } from 'react';
+import { CurrenciesFilter, Currency, CurrencyContextProps, ExchangeRateEntry, CurrencyProviderProps } from '../types/currencies';
+import loadingImg from '../assets/loading-thinking.gif';
 
 export const CurrencyContext = createContext<CurrencyContextProps | undefined>(undefined);
-
-interface CurrencyProviderProps {
-    children: ReactNode;
-}
 
 export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
     const [inCurrency, setInCurrency] = useState<string>('PLN');
@@ -19,6 +15,19 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
     const [exchangeRateHistory, setExchangeRateHistory] = useState<{ date: string, price: number }[]>([]);
+    const [currencyFilter, setCurrencyFilter] = useState<CurrenciesFilter[]>([]);
+
+    const addFilter = (paymentCur: string, purchasedCur: string) => {
+        const newFilter: CurrenciesFilter = {
+            paymentCurrency: paymentCur,
+            purchasedCurrency: purchasedCur
+        };
+        setCurrencyFilter([...currencyFilter, newFilter]);
+    };
+
+    const clearFilters = () => {
+        setCurrencyFilter([]);
+    };
 
     const toggleMenuClick = () => {
         setMenuClick(prevState => !prevState);
@@ -50,9 +59,9 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
         currentDate.setHours(currentDate.getHours() - 3);
         const formattedDate = currentDate.toISOString();
         const encodedDate = encodeURIComponent(formattedDate);
-    
+
         const url = `https://localhost:7145/prices?PaymentCurrency=${inCurrency}&PurchasedCurrency=${outCurrency}&FromDateTime=${encodedDate}`;
-    
+
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -70,7 +79,7 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    };    
+    };
 
     const fetchDescription = async (code: string) => {
         try {
@@ -99,11 +108,12 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
         <CurrencyContext.Provider value={{
             inCurrency, setInCurrency, outCurrency, setOutCurrency, exchangeRate,
             description, fetchExchangeRate, fetchDescription, amount, setAmount,
-            currencies, menuClick, toggleMenuClick, error, exchangeRateHistory
+            currencies, menuClick, toggleMenuClick, error, exchangeRateHistory, setExchangeRateHistory,
+            currencyFilter, addFilter, clearFilters
         }}>{loading ? (
             <div>
                 <p>Loading...</p>
-                <img src={loadingImg}></img>
+                <img src={loadingImg} alt="Loading" />
             </div>
         ) : (
             children

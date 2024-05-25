@@ -11,7 +11,7 @@ export const CurrencyExchangerInput: React.FC = () => {
         throw new Error("CurrencyExchangerInput must be used within a CurrencyProvider");
     }
 
-    const { inCurrency, setInCurrency, outCurrency, setOutCurrency, exchangeRate, amount, setAmount, currencies } = context;
+    const { inCurrency, setInCurrency, outCurrency, setOutCurrency, exchangeRate, amount, setAmount, currencies, addFilter } = context;
 
     const currentDate = new Date();
     const formattedDate = format(currentDate, "EEE, dd MMM yyyy HH:mm 'UTC'");
@@ -75,6 +75,12 @@ export const CurrencyExchangerInput: React.FC = () => {
                         ))}
                     </select>
                 </div>
+                <button 
+                    className={styles.saveFiltersBtn}
+                    onClick={() => addFilter(inCurrency, outCurrency)}
+                >
+                    + Save Filter
+                </button>
             </div>
             <div className={styles.currencyGraphic}>
                 <CurrencyChart/>
