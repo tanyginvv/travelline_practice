@@ -22,7 +22,6 @@ export const CurrencyExchanger: React.FC = () => {
     }
     return (
         <div className={styles.currencyExchanger}>
-            
             <CurrencyExchangerInput />
             <button className={styles.menuClicker} onClick={toggleMenuClick}>{inCurrency}/{outCurrency} : about {menuClick ? '↓' : '↑'}</button>
             <CurrencyExchangerInfo />

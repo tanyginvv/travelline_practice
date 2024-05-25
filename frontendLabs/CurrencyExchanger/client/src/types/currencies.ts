@@ -27,5 +27,11 @@ export interface CurrencyContextProps {
   currencies: Currency[];
   menuClick: boolean,
   toggleMenuClick: () => void;
-  error: string | null
+  error: string | null;
+  exchangeRateHistory: { date: string, price: number }[]
+}
+
+export interface ExchangeRateEntry {
+  dateTime: string;
+  price: number;
 }

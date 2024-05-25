@@ -1,5 +1,5 @@
 import { createContext, useState, ReactNode, FC, useLayoutEffect, useEffect } from 'react';
-import { Currency, CurrencyContextProps } from '../types/currencies';
+import { Currency, CurrencyContextProps, ExchangeRateEntry } from '../types/currencies';
 import loadingImg from '../assets/loading-thinking.gif'
 
 export const CurrencyContext = createContext<CurrencyContextProps | undefined>(undefined);
@@ -17,7 +17,8 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
     const [currencies, setCurrencies] = useState<Currency[]>([]);
     const [menuClick, setMenuClick] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
+    const [exchangeRateHistory, setExchangeRateHistory] = useState<{ date: string, price: number }[]>([]);
 
     const toggleMenuClick = () => {
         setMenuClick(prevState => !prevState);
@@ -26,7 +27,7 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 2000); //просто выставил 2 секунды, чтобы было видно при загрузке
+        }, 2000); // просто выставил 2 секунды, чтобы было видно при загрузке
     }, []);
 
     const fetchCurrencies = async () => {
@@ -40,15 +41,15 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
         } catch (error) {
             setError('Error fetching currencies');
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
     const fetchExchangeRate = async () => {
         const currentDate = new Date();
         currentDate.setHours(currentDate.getHours() - 3);
-        const formattedDate = currentDate.toISOString(); 
-        const encodedDate = encodeURIComponent(formattedDate); 
+        const formattedDate = currentDate.toISOString();
+        const encodedDate = encodeURIComponent(formattedDate);
     
         const url = `https://localhost:7145/prices?PaymentCurrency=${inCurrency}&PurchasedCurrency=${outCurrency}&FromDateTime=${encodedDate}`;
     
@@ -58,14 +59,18 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
                 throw new Error(`Error fetching exchange rate: ${response.statusText}`);
             }
             const data = await response.json();
-            const lastRate = data[data.length - 1].price;
-            setExchangeRate(lastRate);
+            const formattedData = data.map((entry: ExchangeRateEntry) => ({
+                date: entry.dateTime,
+                price: entry.price
+            }));
+            setExchangeRate(data[data.length - 1].price);
+            setExchangeRateHistory(formattedData);
         } catch (error) {
             setError('Error fetching exchange rate');
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
-    };
+    };    
 
     const fetchDescription = async (code: string) => {
         try {
@@ -78,7 +83,7 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
         } catch (error) {
             setError('Error fetching description');
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -92,14 +97,14 @@ export const CurrencyProvider: FC<CurrencyProviderProps> = ({ children }) => {
 
     return (
         <CurrencyContext.Provider value={{
-            inCurrency, setInCurrency, outCurrency, setOutCurrency, exchangeRate, 
-            description, fetchExchangeRate, fetchDescription, amount, setAmount, 
-            currencies, menuClick, toggleMenuClick, error
+            inCurrency, setInCurrency, outCurrency, setOutCurrency, exchangeRate,
+            description, fetchExchangeRate, fetchDescription, amount, setAmount,
+            currencies, menuClick, toggleMenuClick, error, exchangeRateHistory
         }}>{loading ? (
             <div>
                 <p>Loading...</p>
                 <img src={loadingImg}></img>
-            </div> 
+            </div>
         ) : (
             children
         )}

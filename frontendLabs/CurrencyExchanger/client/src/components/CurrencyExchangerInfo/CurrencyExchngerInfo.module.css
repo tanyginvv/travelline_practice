@@ -4,10 +4,9 @@
 }
 
 .infoPaymentCurrency {
-    margin-left: 25px;
     display: flex;
     flex-direction: column;
-    width : 700px;
+    width : 850px;
 }
 
 .infoHeader {

@@ -1,8 +1,15 @@
+.exchangerHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .exchangerInput {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    width: 350px;
+    margin-left: 50px;
+    text-align: left;
+    align-self: start;
 }
 
 .inputIn {
@@ -55,4 +62,9 @@
 .inFormValue:focus,
 .inFormSelect:focus {
     outline: none; 
+}
+
+.currencyGraphic {
+    width: 450px;
+    margin: 0 40px 0 40px;
 }
