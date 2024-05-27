@@ -9,9 +9,11 @@
     border-color: #DCDCDC;
     border-radius: 20px;
     height: 100%;
+    margin-bottom: 30px;
 }
 
 .formHeader {
+    font-family: "EuclidCircularBLight";
     font-size: 25px;
     font-weight: 500;
     line-height: 29px;
@@ -44,50 +46,4 @@
 
 .submitButton:disabled {
     background-color: #C0C0C0;
-}
-
-.data {
-    margin-top: 50px;
-}
-
-.submitedData {
-    width: 550px;
-    height: 181px;
-    display: flex;
-    flex-direction: row;
-}
-
-.dataImg {
-    width: 50px;
-    height: 50px;
-}
-
-.dataInfo {
-    display: flex;
-    flex-direction: row;
-    width: 550px;
-}
-
-.infoStar {
-    margin: 10px 0 0 12px;
-    color: #404040;
-    font-size: 26px; 
-    font-weight: 600;
-}
-
-.infoName {
-    width: 451px;
-    text-align: left;
-    margin-left: 20px;
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.infoReview {
-    text-align: left;
-    margin: 0  70px;
-    color: #404040;
-    font-size: 14px;
-    width: 451px;
-    overflow-wrap: break-word;
 }

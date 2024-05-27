@@ -25,6 +25,7 @@
 }
 
 .inputArea {
+    font-family: "EuclidCircularBLight";
     margin-top: 8px;
     border: solid;
     border-color: #DCDCDC;
@@ -37,6 +38,7 @@
 }
 
 .textArea {
+    font-family: "EuclidCircularBLight";
     resize: none;
     margin-top: 27px;
     border: solid;
@@ -44,8 +46,13 @@
     border-width: 1px;
     border-radius: 5px;
     font-size: 14px;
-    color: #909090;
+    color: #404040;
     padding: 14px 10px 14px 12px;
     min-height: 113px;
     overflow-y: hidden;
+}
+
+.inputArea:focus,
+.textArea:focus{
+    outline: none;
 }

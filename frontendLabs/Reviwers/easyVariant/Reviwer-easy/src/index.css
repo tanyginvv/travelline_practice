@@ -44,10 +44,7 @@ body {
 }
 @font-face { 
   font-family: "EuclidCircularBLight";
-  src: url("../fonts/EuclidCircularBLight/EuclidCircularBLight.eot");
-  src: url("../fonts/EuclidCircularBLight/EuclidCircularBLight.eot?#iefix")format("embedded-opentype"),
-  url("../fonts/EuclidCircularBLight/EuclidCircularBLight.woff") format("woff"),
-  url("../fonts/EuclidCircularBLight/EuclidCircularBLight.ttf") format("truetype");
+  src: url("./assets/fonts/EuclidCircularBLight.ttf");
   font-style: normal;
   font-weight: 300;
 }
