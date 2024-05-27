@@ -1,20 +1,20 @@
 import { Route } from "./routesInfo";
-import { getParameterTypesString } from "./createHtml";
+import { getParameterTypesString } from "./createHtmlForRoute";
 const BASE_URL = 'http://localhost:5154';
 
 const makeResponse = async (route: Route) => {
-    const requestBodyTextarea = document.querySelector(`.request-body-${route.method.toLowerCase()}`) as HTMLTextAreaElement | null;
+    const requestBodyTextarea = document.querySelector<HTMLTextAreaElement>(`.request-body-${route.method.toLowerCase()}`);
     const requestBody = requestBodyTextarea?.value;
     
-    const idInput = document.querySelector(`#${route.method.toLowerCase()}-id`) as HTMLInputElement | null;
-    const emailInput = document.querySelector(`#${route.method.toLowerCase()}-email`) as HTMLInputElement | null;
+    const idInput = document.querySelector<HTMLInputElement>(`#${route.method.toLowerCase()}-id`);
+    const emailInput = document.querySelector<HTMLInputElement>(`#${route.method.toLowerCase()}-email`);
     
     const id = route.url.includes('{id}') && idInput ? idInput.value : '';
     const email = route.url.includes('{email}') && emailInput ? emailInput.value : '';
     
     const baseUrlWithId = route.url
         .replace('{id}', id)
-        .replace('{email}', email.toString());
+        .replace('{email}', email);
 
     const response = await fetch(`${BASE_URL}${baseUrlWithId}`, {
         method: route.method,
@@ -26,10 +26,10 @@ const makeResponse = async (route: Route) => {
 
     const responseData = await response.json(); 
       
-    const responseUrlResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-url-result`); 
-    const responseCodeResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-code-result`);
-    const responseBodyResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-body-result`);
-    const responseHeadersResult = document.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-headers-result`);
+    const responseUrlResult = document.querySelector<HTMLParagraphElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-url-result`); 
+    const responseCodeResult = document.querySelector<HTMLParagraphElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-code-result`);
+    const responseBodyResult = document.querySelector<HTMLParagraphElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-body-result`);
+    const responseHeadersResult = document.querySelector<HTMLParagraphElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-response #response-headers-result`);
 
     if (responseUrlResult) {
         responseUrlResult.innerHTML = `${response.url}`;
@@ -52,10 +52,10 @@ const makeResponse = async (route: Route) => {
     };
 };
 
-export const checkUserActions = (node: Element, route: Route) => {
-    const menuButton = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user`);
-    const menu = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-menu`);
-    const arrow = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user .arrow`); 
+export const checkSwagger = (node: Element, route: Route) => {
+    const menuButton = node.querySelector<HTMLDivElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user`);
+    const menu = node.querySelector<HTMLDivElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-menu`);
+    const arrow = node.querySelector<HTMLDivElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)}-user .arrow`); 
 
     if (menuButton && menu) {
         menuButton.addEventListener("click", () => {
@@ -64,10 +64,10 @@ export const checkUserActions = (node: Element, route: Route) => {
         });
     };
 
-    const executeButton = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .menu-button-execute`);
-    const clearButton = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .menu-button-clear`);
-    const responseBody = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-response`);
-    const responseBodyMenu = node.querySelector(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-menu-response`);
+    const executeButton = node.querySelector<HTMLButtonElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)} .menu-button-execute`);
+    const clearButton = node.querySelector<HTMLButtonElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)} .menu-button-clear`);
+    const responseBody = node.querySelector<HTMLDivElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-response`);
+    const responseBodyMenu = node.querySelector<HTMLDivElement>(`.${route.method.toLowerCase() + getParameterTypesString(route)} .route-header-menu-response`);
 
     if (executeButton && clearButton){
         executeButton.addEventListener("click", () => {
@@ -92,9 +92,3 @@ export const checkUserActions = (node: Element, route: Route) => {
         });
     };
 };
-
-export const checkSwagger = (node: Element, routes: Route[]) =>{
-    routes.forEach(route => {
-        checkUserActions(node, route);
-    });
-}

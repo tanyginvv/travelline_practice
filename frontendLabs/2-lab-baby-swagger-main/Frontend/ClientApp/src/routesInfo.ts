@@ -3,8 +3,8 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE';
 export type Route = {
   method: HttpMethod;
   url: string;
-  parameters?: { [key: string]: string };
-  body?: { [key: string]: string | number };
+  parameters?: Record<string, string>;
+  body?: Record<string, string | number>;
 }
 
 export const routes: Route[] = [

@@ -493,6 +493,7 @@ textarea {
   display: flex;
   flex-direction: column;
 }
+
 .delete-response {
   display: none;
 }
