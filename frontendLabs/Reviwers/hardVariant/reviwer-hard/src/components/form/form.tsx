@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { FormItem } from "../formItem/formItem";
-import { InputPanel } from "../inputPanel/inputPanel";
+import { RangePanelItem } from "../rangePanelItem/rangePanelItem";
+import { SubmitButton } from '../submitButton/submitButton';
 import styles from "./form.module.css";
-import User from "../../assets/user.jpg";
+import { Review } from '../review/review';
 
-type FormData = {
+type Review = {
   ratings: number[];
   userName: string;
   userReview: string;
-  averageRating: number;
+  reviewValue: number;
 };
 
-const formItems = [
+const rangePanelItems = [
   { id: 0, label: "Чистенько" },
   { id: 1, label: "Сервис" },
   { id: 2, label: "Скорость" },
@@ -20,10 +20,10 @@ const formItems = [
 ];
 
 export const Form: React.FC = () => {
-  const [ratings, setRatings] = useState<number[]>(Array(formItems.length).fill(-1));
+  const [ratings, setRatings] = useState<number[]>(Array(rangePanelItems.length).fill(-1));
   const [userName, setUserName] = useState<string>("");
   const [userReview, setUserReview] = useState<string>("");
-  const [reviews, setReviews] = useState<FormData[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [reset, setReset] = useState<boolean>(false);
 
   const handleRangeChange = (id: number, value: number) => {
@@ -32,30 +32,30 @@ export const Form: React.FC = () => {
     setRatings(newRatings);
   };
 
-  const handleInputChange = (id: number, value: string) => {
-    switch (id) {
-      case 1:
-        setUserName(value);
-        break;
-      case 2:
-        setUserReview(value);
-        break;
-      default:
-        break;
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = event.target;
+    handleInputChange(id, value);
+  };
+
+  const handleInputChange = (id: string, value: string) => {
+    if (id === "userName") {
+      setUserName(value);
+    } else if (id === "userReview") {
+      setUserReview(value);
     }
   };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     const validRatings = ratings.filter(rating => rating >= 0);
-    const averageRating = validRatings.reduce((acc, rating) => acc + rating, 0) / validRatings.length;
-    const formData: FormData = {
+    const reviewValue = validRatings.reduce((acc, rating) => acc + rating, 0) / validRatings.length;
+    const review: Review = {
       ratings,
       userName,
       userReview,
-      averageRating
+      reviewValue
     };
-    setReviews((prevReviews) => [...prevReviews, formData]);
+    setReviews((prevReviews) => [...prevReviews, review]);
     resetForm();
   };
 
@@ -64,20 +64,20 @@ export const Form: React.FC = () => {
   };
 
   const resetForm = () => {
-    setRatings(Array(formItems.length).fill(-1));
+    setRatings(Array(rangePanelItems.length).fill(-1));
     setUserName("");
     setUserReview("");
     setReset(true);
-    setTimeout(() => setReset(false), 0);  // Reset the form
+    setTimeout(() => setReset(false), 0);
   };
 
   return (
     <div>
       <form className={styles.formBody} onSubmit={handleSubmit}>
-        <h1 className={styles.formHeader}>Помогите нам сделать процесс бронирования лучше</h1>
-        <div className={styles.formItems}>
-          {formItems.map((item) => (
-            <FormItem
+        <legend className={styles.formTitle}>Помогите нам сделать процесс бронирования лучше</legend>
+        <fieldset className={styles.rangePanelItems}>
+          {rangePanelItems.map((item) => (
+            <RangePanelItem
               key={item.id}
               id={item.id}
               label={item.label}
@@ -85,34 +85,37 @@ export const Form: React.FC = () => {
               reset={reset}
             />
           ))}
-        </div>
-        <InputPanel
-          inputs={[
-            { id: 1, label: "*Имя", placeholder: "Как вас зовут?", type: 'text' },
-            { id: 2, placeholder: "Напишите, что понравилось, что было непонятно", type: 'textarea' }
-          ]}
-          handleInputChange={handleInputChange}
-          inputValues={[
-            { id: 1, value: userName },
-            { id: 2, value: userReview }
-          ]}
-        />
-        <div className={styles.buttonPanel}>
-          <button className={styles.submitButton} type="submit" disabled={!isFormValid()}>Отправить</button>
-        </div>
+        </fieldset>
+        <fieldset className={styles.inputItem}>
+          <label className={styles.inputLabel}>*Имя</label>
+          <input
+            id="userName"
+            className={styles.inputArea}
+            type="text"
+            placeholder='Как вас зовут?'
+            value={userName}
+            onChange={handleInput}
+          />
+          <textarea
+            id="userReview"
+            className={styles.textArea}
+            placeholder='Напишите, что понравилось, что было непонятно'
+            value={userReview}
+            onChange={handleInput}
+          ></textarea>
+        </fieldset>
+        <SubmitButton disabled={!isFormValid()} />
       </form>
-      <div className={styles.data}>
+      <article className={styles.data}>
         {reviews.map((data, index) => (
-          <div className={styles.submittedData} key={index}>
-            <div className={styles.dataInfo}>
-              <img className={styles.dataImg} src={User} alt="User" />
-              <p className={styles.infoName}>{data.userName}</p>
-              <p className={styles.infoStar}>{data.averageRating.toFixed(2)}/5</p>
-            </div>
-            <p className={styles.infoReview}>{data.userReview}</p>
-          </div>
+          <Review
+            key={index}
+            userName={data.userName}
+            reviewValue={data.reviewValue}
+            userReview={data.userReview}
+          />
         ))}
-      </div>
+      </article>
     </div>
   );
 };

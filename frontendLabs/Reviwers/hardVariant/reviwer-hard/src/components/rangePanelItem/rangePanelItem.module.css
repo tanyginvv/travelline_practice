@@ -1,11 +1,12 @@
-.formItem {
+.rangePanelItem {
     display: flex;
     flex-direction: row-reverse;
     margin-right: 10px;
     margin-bottom: 10px;
 }
 
-.itemLabel {
+.rangePanelItemLabel {
+    font-family: "EuclidCircularBLight";
     font-size: 20px;
     color: #404040;
     margin-left: 20px;

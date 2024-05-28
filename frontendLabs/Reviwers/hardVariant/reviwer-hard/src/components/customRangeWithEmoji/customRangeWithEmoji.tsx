@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import styles from './rangeInput.module.css';
-import AngrySmile from '../assets/angry-face.svg';
-import FrowningSmile from '../assets/slightly-frowning-face.svg';
-import NeutralSmile from '../assets/neutral-face.svg';
-import SlightlySmile from '../assets/slightly-smiling-face.svg';
-import GrinningSmile from '../assets/grinning-face-with-big-eyes.svg';
+import styles from './customRangeWithEmojirangeInput.module.css';
+import AngrySmile from '../../assets/images/angry-face.svg';
+import FrowningSmile from '../../assets/images/slightly-frowning-face.svg';
+import NeutralSmile from '../../assets/images/neutral-face.svg';
+import SlightlySmile from '../../assets/images/slightly-smiling-face.svg';
+import GrinningSmile from '../../assets/images/grinning-face-with-big-eyes.svg';
 
 const emojis = [AngrySmile, FrowningSmile, NeutralSmile, SlightlySmile, GrinningSmile];
 const colors = ['red', '#FF5733', '#FF5733', '#FFC700', '#FFC700'];
@@ -20,7 +20,7 @@ interface RangeInputProps {
   reset: boolean;
 }
 
-export const RangeInput: React.FC<RangeInputProps> = ({ onChange, reset }) => {
+export const CustomRangeWithEmoji: React.FC<RangeInputProps> = ({ onChange, reset }) => {
   const [circles, setCircles] = useState<Circle[]>(emojis.map((_, index) => ({
     color: colors[index],
     selected: false
