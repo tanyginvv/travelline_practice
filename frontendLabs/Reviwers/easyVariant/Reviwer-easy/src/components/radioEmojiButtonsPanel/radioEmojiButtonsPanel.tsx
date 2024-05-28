@@ -1,6 +1,6 @@
 import React from 'react';
-import { RadioButton } from '../button/radioBtn';
-import styles from "./RadioBtnsPanel.module.css";
+import { RadioButtonWithEmoji } from '../radioButtonWithEmoji/radioButtonWithEmoji';
+import styles from "./radioEmojiButtonsPanel.module.css";
 import AngryFace from "../../assets/images/angry-face.svg";
 import GrinningFace from "../../assets/images/grinning-face-with-big-eyes.svg";
 import NeutralFace from "../../assets/images/neutral-face.svg";
@@ -27,11 +27,11 @@ const Buttons: Button[] = [
     { id: 5, src: GrinningFace, alt: "Очень хорошо", value: 5 },
 ];
 
-export const RadioBtnsPanel: React.FC<RadioBtnPanelProps> = ({ reviewValue, setReviewValue }) => {
+export const RadioEmojiButtonsPanel: React.FC<RadioBtnPanelProps> = ({ reviewValue, setReviewValue }) => {
     return (
-        <div className={styles.buttonPanel}>
+        <fieldset className={styles.buttonPanel}>
             {Buttons.map((button) => (
-                <RadioButton
+                <RadioButtonWithEmoji
                     key={button.id}
                     src={button.src}
                     alt={button.alt}
@@ -39,6 +39,6 @@ export const RadioBtnsPanel: React.FC<RadioBtnPanelProps> = ({ reviewValue, setR
                     onClick={() => setReviewValue(button.value)}
                 />
             ))}
-        </div>
+        </fieldset>
     );
 };

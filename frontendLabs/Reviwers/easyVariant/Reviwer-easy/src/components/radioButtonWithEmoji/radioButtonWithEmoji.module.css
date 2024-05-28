@@ -8,6 +8,7 @@
     height: 34px;
     border: 1px solid #DCDCDC;
     border-radius: 46px;
+    cursor: pointer;
 }
 
 .activeBtn {

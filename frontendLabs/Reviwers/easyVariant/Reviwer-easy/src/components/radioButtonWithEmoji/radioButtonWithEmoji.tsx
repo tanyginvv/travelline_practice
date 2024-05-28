@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from "./radioBtn.module.css";
+import styles from "./radioButtonWithEmoji.module.css";
 
 interface RadioButtonProps {
     src: string;
@@ -8,7 +8,7 @@ interface RadioButtonProps {
     onClick: () => void;
 }
 
-export const RadioButton: React.FC<RadioButtonProps> = ({ src, alt, isActive, onClick}) => {
+export const RadioButtonWithEmoji: React.FC<RadioButtonProps> = ({ src, alt, isActive, onClick}) => {
     return (
         <label className={`${styles.buttonLabel} ${isActive ? styles.activeBtn : ''}`} onClick={onClick}>
             <input type="radio" readOnly className={styles.radioBtn} />

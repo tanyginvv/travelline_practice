@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from "./form.module.css";
-import { RadioBtnsPanel } from "../radioBtnsPanel/RadioBtnsPanel";
-import { InputPanel } from "../inputPanel/inputPanel";
-import { SubmittedData } from '../submittedData/submittedData';
+import { RadioEmojiButtonsPanel } from "../radioEmojiButtonsPanel/radioEmojiButtonsPanel";
+import { Review } from '../review/review';
+import { SubmitButton } from '../submitButton/submitButton';
 
 
-type FormData = {
+type Review = {
     reviewValue: number | null;
     userName: string;
     userReview: string;
@@ -15,8 +15,13 @@ export const Form: React.FC = () => {
     const [reviewValue, setReviewValue] = useState<number | null>(null);
     const [userName, setUserName] = useState<string>("");
     const [userReview, setUserReview] = useState<string>("");
-    const [submittedData, setSubmittedData] = useState<FormData | null>(null);
+    const [submittedData, setSubmittedData] = useState<Review | null>(null);
 
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { id, value } = event.target;
+        handleInputChange(id, value);
+    };
+    
     const handleInputChange = (id: string, value: string) => {
         if (id === "userName") {
             setUserName(value);
@@ -27,12 +32,12 @@ export const Form: React.FC = () => {
 
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        const formData: FormData = {
+        const review: Review = {
             reviewValue,
             userName,
             userReview
         };
-        setSubmittedData(formData);
+        setSubmittedData(review);
         resetForm();
     };
 
@@ -49,23 +54,34 @@ export const Form: React.FC = () => {
     return (
         <div>
             <form className={styles.formBody} onSubmit={handleSubmit}>
-                <h1 className={styles.formHeader}>Помогите нам сделать процесс бронирования лучше</h1>
-                <RadioBtnsPanel reviewValue={reviewValue} setReviewValue={setReviewValue} />
-                <InputPanel
-                    handleInputChange={handleInputChange}
-                    userName={userName}
-                    userReview={userReview}
-                />
-                <div className={styles.buttonPanel}>
-                    <button className={styles.submitButton} type="submit" disabled={!isFormValid()}>Отправить</button>
-                </div>
+                <legend className={styles.formTitle}>Помогите нам сделать процесс бронирования лучше</legend>
+                <RadioEmojiButtonsPanel reviewValue={reviewValue} setReviewValue={setReviewValue} />
+                <fieldset className={styles.inputItem}>
+                    <label className={styles.inputLabel}>*Имя</label>
+                    <input
+                        id="userName"
+                        className={styles.inputArea}
+                        type="text"
+                        placeholder='Как вас зовут?'
+                        value={userName}
+                        onChange={handleInput}
+                    />
+                    <textarea
+                        id="userReview"
+                        className={styles.textArea}
+                        placeholder='Напишите, что понравилось, что было непонятно'
+                        value={userReview}
+                        onChange={handleInput}
+                    ></textarea>
+                </fieldset>
+                <SubmitButton disabled={!isFormValid()}/>
             </form>
-            <div className={styles.data}> 
+            <article className={styles.data}> 
                 {submittedData && (
-                    <SubmittedData userName={submittedData.userName} reviewValue={submittedData.reviewValue}
+                    <Review userName={submittedData.userName} reviewValue={submittedData.reviewValue}
                     userReview={submittedData.userReview}/>
                 )}
-            </div>
+            </article>
         </div>
     );
 };
