@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { RangePanelItem } from "../rangePanelItem/rangePanelItem";
 import { SubmitButton } from '../submitButton/submitButton';
 import styles from "./form.module.css";
-import { Review } from '../review/review';
 
 type Review = {
   ratings: number[];
@@ -19,11 +18,14 @@ const rangePanelItems = [
   { id: 4, label: "Культура речи" }
 ];
 
-export const Form: React.FC = () => {
+type FormProps = {
+  addReview: (review: Review) => void;
+};
+
+export const Form: React.FC<FormProps> = ({ addReview }) => {
   const [ratings, setRatings] = useState<number[]>(Array(rangePanelItems.length).fill(-1));
   const [userName, setUserName] = useState<string>("");
   const [userReview, setUserReview] = useState<string>("");
-  const [reviews, setReviews] = useState<Review[]>([]);
   const [reset, setReset] = useState<boolean>(false);
 
   const handleRangeChange = (id: number, value: number) => {
@@ -32,17 +34,12 @@ export const Form: React.FC = () => {
     setRatings(newRatings);
   };
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = event.target;
-    handleInputChange(id, value);
+  const handleUserNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
   };
 
-  const handleInputChange = (id: string, value: string) => {
-    if (id === "userName") {
-      setUserName(value);
-    } else if (id === "userReview") {
-      setUserReview(value);
-    }
+  const handleUserReviewChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setUserReview(event.target.value);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -55,7 +52,7 @@ export const Form: React.FC = () => {
       userReview,
       reviewValue
     };
-    setReviews((prevReviews) => [...prevReviews, review]);
+    addReview(review);
     resetForm();
   };
 
@@ -94,28 +91,18 @@ export const Form: React.FC = () => {
             type="text"
             placeholder='Как вас зовут?'
             value={userName}
-            onChange={handleInput}
+            onChange={handleUserNameChange}
           />
           <textarea
             id="userReview"
             className={styles.textArea}
             placeholder='Напишите, что понравилось, что было непонятно'
             value={userReview}
-            onChange={handleInput}
+            onChange={handleUserReviewChange}
           ></textarea>
         </fieldset>
         <SubmitButton disabled={!isFormValid()} />
       </form>
-      <article className={styles.data}>
-        {reviews.map((data, index) => (
-          <Review
-            key={index}
-            userName={data.userName}
-            reviewValue={data.reviewValue}
-            userReview={data.userReview}
-          />
-        ))}
-      </article>
     </div>
   );
 };

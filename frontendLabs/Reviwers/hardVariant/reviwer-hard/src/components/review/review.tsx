@@ -13,7 +13,7 @@ export const Review = ( data: dataProps) => {
             <div className={styles.dataInfo}>
                 <img className={styles.dataImg} src={User} alt="User"></img>
                 <p className={styles.infoName}>{data.userName}</p>
-                <p className={styles.infoStar}>{data.reviewValue?.toFixed(2)}/5</p>
+                <p className={styles.infoStar}>{data.reviewValue && data.reviewValue.toFixed(2).toString()+"/5"}</p>
             </div>
             <p className={styles.infoReview}>{data.userReview}</p>
         </article>
