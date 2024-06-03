@@ -1,0 +1,41 @@
+@use '../../../App.scss' as * ;
+
+.resultList{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #FFFFFF;
+    width: 300px;
+    height: 190px;
+    margin-bottom: 15px;
+
+    p {
+        margin: 10px 0 10px 20px;
+        font-weight: 600;
+    }
+    .result {
+        display: flex;
+        flex-direction: row;
+        height: 30px;
+        width: 255px;
+        justify-content: space-between;
+        margin: 0 20px;
+        border-bottom: 1px solid #b9b9b9;
+
+        img {
+            width: 25px;
+            height: 25px;
+        }
+
+        p{
+            margin: 0;
+        }
+
+        span{
+            p{
+                margin: 0;
+                font-weight: 400;
+            }
+        }
+    }
+}

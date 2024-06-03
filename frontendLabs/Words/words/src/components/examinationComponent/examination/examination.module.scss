@@ -1,0 +1,37 @@
+@use "../../../App.scss" as *;
+
+.examination {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    
+    h1 {
+        font-weight: $font-bold;
+        color: $font-color;
+        font-size: $header-font-size;
+        margin: 0;
+    }
+
+    span {
+        display: flex;
+        direction: row;
+        gap: 10px;
+    }
+
+    a {
+        width: 50px;
+        height: 40px;
+        border: solid $activeButtonColor;
+        border-width: 1px;
+        border-radius: $borderRadius;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+    }
+}

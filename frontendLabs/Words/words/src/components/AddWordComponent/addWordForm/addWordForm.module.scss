@@ -1,0 +1,26 @@
+@use "../../../App.scss" as *;
+
+.addWordForm{
+    width: calc(96vw - 1vh);
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+
+    legend{
+        border-bottom: 1px solid #B9B9B9;
+        align-items: center;
+        height: 55px;
+        padding: 10px 0 0 30px;
+        font-weight: $font-bold;
+        font-size: calc($header-font-size / 1.5);
+    }
+
+    fieldset {
+        border: none;
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        align-items: left;
+    }
+}

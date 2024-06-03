@@ -1,0 +1,38 @@
+@use "../../../App.scss" as *;
+
+.formInputs {
+    padding-top: 15px;
+    background-color: #FFFFFF;
+    width: calc(96vw - 1vh);
+}
+
+.formButton {
+    font-weight: $font-bold;
+    background-color: $activeButtonColor;
+    color: $colorButton;
+    text-decoration: none;
+    width: 175px;
+    height: 35px;
+    padding: 5px;
+    border: solid $activeButtonColor;
+    border-radius: $borderRadius;
+    border-width: 1px;
+    text-transform: uppercase;
+    align-items: center;
+    justify-content: center;
+
+    &:disabled {
+      background-color: #B9B9B9;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: #B9B9B9;
+        color: $colorButton;
+      }
+    }
+
+    &:hover {
+      background-color: $colorButton;
+      color: $activeButtonColor;
+    }
+}

@@ -1,0 +1,49 @@
+@use '../../../App.scss' as *;
+
+.formButtons {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+
+    .button {
+        font-weight: $font-bold;
+        background-color: $activeButtonColor;
+        color: $colorButton;
+        text-decoration: none;
+        width: 175px;
+        height: 35px;
+        padding: 5px;
+        border: solid $activeButtonColor;
+        border-radius: $borderRadius;
+        border-width: 1px;
+        text-transform: uppercase;
+        align-items: center;
+        justify-content: center;
+    
+        &:disabled {
+          background-color: #B9B9B9;
+          cursor: not-allowed;
+
+          &:hover {
+            background-color: #B9B9B9;
+            color: $colorButton;
+          }
+        }
+
+        &:hover {
+          background-color: $colorButton;
+          color: $activeButtonColor;
+        }
+    
+        &--secondary {
+          background-color: $secondaryButtonColor;
+          color: $secondaryButtonTextColor;
+          border-color: $secondaryButtonTextColor;
+    
+          &:hover {
+            background-color: $secondaryButtonTextColor;
+            color: $secondaryButtonColor;
+          }
+        }
+    }
+}
