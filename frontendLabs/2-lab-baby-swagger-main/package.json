@@ -1,0 +1,14 @@
+{
+  "name": "2-lab-baby-swagger-main",
+  "version": "1.0.0",
+  "description": "Имеется API – стандартный CRUD для сущности пользователя: \r - Получение списка пользователей GET /users\r - Добавление пользователя POST /users\r - Получение конкретного пользователя GET /users/{id}\r - Обновление данных пользователя PUT /users/{id}\r - Удаление пользователя DELETE /users/{id}\r - Получение данных пользователя по email GET /Users/get-by-email/{email}",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,503 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #213547;
+  background-color: #ffffff;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+p{
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+#app {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px 0;
+}
+
+button {
+  border-width: 0;
+  padding: 0;
+}
+
+textarea {
+  padding: 10px;
+  width: 1240px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-shadow: 1px 1px 1px #999;
+  overflow:  hidden;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.router {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.route {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #000;
+  border-radius: 4px;
+  box-shadow: 0 0 3px rgba(215, 125, 22, 0.19);
+}
+
+.route-get {
+  background: rgba(97, 175, 254, 0.1);
+  border-color: #61affe;
+}
+
+.route-put {
+  background: rgba(212, 122, 27, 0.1);
+  border-color: #d97c1f;
+}
+
+.route-post {
+  background: rgba(212, 122, 27, 0.1);
+  border-color: #49cc90;
+}
+
+.route-header {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-summary {
+  padding: 5px;
+  background-color: inherit;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.route-summary-method {
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 0;
+  min-width: 80px;
+  border-radius: 3px;
+}
+
+.route-get .route-summary-method {
+  background-color: #61affe;
+}
+
+.route-put .route-summary-method {
+  background-color: #d68813;
+}
+
+.route-summary-path {
+  font-family: monospace;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 0 10px;
+  color: #3b4151;
+}
+
+.route-summary-arrow  {
+  margin-left:  auto;
+}
+
+.arrow {
+  transform: rotate(180deg);
+}
+
+.rotate {
+  transform: rotate(0deg);
+}
+
+.route-header-menu {
+  display: none;
+  width: 100%;
+  height: 100%;
+  border-top: solid;
+  border-color: #61affe;
+  border-width: 1px;
+}
+
+.active {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-header-menu-header {
+  background-color: #ffffff;
+  height: 50px;
+  padding-bottom: 35px;
+}
+
+.route-header-menu-parametr {
+  width: 95px;
+  padding: 8px 0 8px 15px;
+  margin: 20px 0 0px 8px;
+  border-bottom: solid;
+  border-color: #61affe;
+  border-width: 5px;
+}
+
+.parametr-text {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.menu-button-execute {
+  background-color: #3f79b4;
+  width: 100%;
+  height: 35px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  margin: 60px 20px 10px 20px;
+}
+
+.clickedExecute {
+  width: 50%;
+  margin:  60px 0 10px 20px;
+}
+
+.menu-button-clear {
+  display: none;
+  background-color: transparent;
+  width: 50%;
+  height: 35px;
+  color: #213547;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 60px 20px 10px 0;
+  border: solid;
+  border-color: #213547;
+  cursor: pointer;
+  border-width: 1px;
+}
+
+.unclickedClear {
+  display: block;
+}
+
+.route-header-menu-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 115px;
+  background-color: #86c3ff5e;
+}
+
+.route-header-menu-response {
+  display: none;
+  flex-direction: column;
+  width: 1235px;
+  height: 100%;
+  margin: 15px 20px 0px 20px;
+  gap: 0;
+}
+
+.response-item{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.response-title {
+  text-align: left;
+  font-size: 16px;
+  color: #000000;
+  font-weight: 700;
+  width: 100%;
+  margin: 0 0 5px 0;
+}
+
+.response-result {
+  color: #ffffff;
+  background-color: #213547;
+  height: 100%;
+  padding: 8px 5px 8px 5px;
+  font-weight: 400;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.route-header-response {
+  display: none;
+}
+
+.responseBodyClicked {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-put {
+  display: none;
+}
+
+.put-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-put {
+  background: rgba(255, 165, 0, 0.1);
+  border-color: #d68813; 
+}
+
+.route-put .route-summary-method {
+  background-color: #d68813;
+}
+
+.route-put .route-header-menu-parametr {
+  border-color: #d68813; 
+}
+
+.route-put .route-header-menu-buttons {
+  background-color: rgba(255, 204, 128, 0.279);
+}
+
+.route-put .route-header-menu {
+  border-color: #d68813; 
+}
+
+.route-header-menu-input {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  margin: 10px 0 0 20px;
+}
+
+.input-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-text {
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.title-text-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.input-require {
+  font-size: 10px;
+  color:  #d68813;
+  font-weight: 600;
+}
+
+.input-field {
+  height: 28px;
+  width: 300px;
+  margin: 10px 0 0 30px;
+  border-color: #21354751;
+  border-width: 1px;
+  font-size: 16px;
+  font-weight: 500;
+  padding-left: 5px;
+}
+
+.route-put .request-param {
+  width: 110px;
+}
+
+.request-put {
+  height: 50px;
+}
+
+.request-body-put {
+  height: 100px;
+  width: 1240px;
+  margin: 10px 10px 10px 10px;
+}
+
+.route-header-request {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-put .routeHeaderMenuResponse {
+  display: flex;
+}
+
+.route-put-clicked {
+  display: flex;
+}
+
+.route-post {
+  background: rgba(0, 255, 4, 0.1);
+  border-color: #49cc90; 
+}
+
+.route-post .route-summary-method {
+  background-color: #49cc90;
+}
+
+.route-post .route-header-menu-parametr {
+  border-color: #49cc90; 
+}
+
+.route-post .route-header-menu-buttons {
+  background: rgba(0, 255, 4, 0.1)
+}
+
+.route-post .route-header-menu {
+  border-color: #49cc90; 
+}
+
+.menu-post {
+  display: none;
+  flex-direction: column;
+}
+
+.post-active {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-post .request-param {
+  width: 110px;
+}
+
+.request-post {
+  height: 50px;
+}
+
+.request-body-post {
+  height: 100px;
+  width: 1240px;
+  margin: 10px 10px 10px 10px;
+}
+
+.route-delete {
+  background: rgba(255, 0, 0, 0.194);
+  border-color: #f93e3e; 
+}
+
+.route-delete .route-summary-method {
+  background-color: #f93e3e;
+}
+
+.route-delete .route-header-menu-parametr {
+  border-color: #f93e3e; 
+}
+
+.route-delete .route-header-menu-buttons {
+  background-color: rgba(255, 128, 128, 0.279);
+}
+
+.route-delete .route-header-menu {
+  border-color: #f93e3e; 
+}
+
+.route-delete .routeHeaderMenuResponse {
+  display: flex;
+}
+
+.route-delete .request-param {
+  width: 110px;
+}
+
+.menu-delete {
+  display: none;
+  flex-direction: column;
+}
+
+.delete-request {
+  display: flex;
+}
+
+.route-get-users {
+  background: #86c3ff5e;
+  border-color: #61affe; 
+}
+
+.route-get-users .route-summary-method {
+  background-color: #61affe;
+}
+
+.route-get-users .route-header-menu-parametr {
+  border-color: #61affe; 
+}
+
+.route-get-users .route-header-menu-buttons {
+  background-color: #86c3ff5e;
+}
+
+.route-get-users .route-header-menu {
+  border-color: #61affe; 
+}
+
+.route-get-users-by-mail {
+  background: #86c3ff5e;
+  border-color: #61affe; 
+}
+
+.route-get-users-by-mail .route-summary-method {
+  background-color: #61affe;
+}
+
+.route-get-users-by-mail .route-header-menu-parametr {
+  border-color: #61affe; 
+}
+
+.route-get-users-by-mail .route-header-menu-buttons {
+  background-color: #86c3ff5e;
+}
+
+.route-get-users-by-mail .route-header-menu {
+  border-color: #61affe; 
+}
+
+
+.execute {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-response {
+  display: none;
+}
+
+.put-response {
+  display: none;
+}
