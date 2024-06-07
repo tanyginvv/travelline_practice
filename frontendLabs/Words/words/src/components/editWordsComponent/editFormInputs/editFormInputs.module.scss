@@ -1,0 +1,61 @@
+@use "../../../App.scss" as * ;
+
+.formInputs{
+    width: calc(94vw - 1vh);
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border: none;
+    margin-bottom: 15px;
+    span{
+        border-bottom: 1px solid #B9B9B9;
+        align-items: center;
+        height: 55px;
+        padding: 0px 0 0 17px;
+        width: calc(93vw - 1vh);
+        font-weight: $font-bold;
+        font-size: calc($header-font-size / 1.5);
+        background-color: #FFFFFF;
+    }
+
+    fieldset {
+        border: none;
+        display: flex;
+        flex-direction: row;
+        text-align: left;
+        align-items: left;
+    }
+
+    .formInput {
+        width: 470px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin: 5px 20px 5px 5px;
+
+        label {
+            margin-top: 7px;
+        }
+
+        input {
+            height: 30px;
+            border: solid 1px;
+            padding: 5px;
+            font-size: 16px;
+            border-radius: $borderRadius;
+
+            &.input--empty {
+                border-color: red;
+            }
+
+            &.input--non-empty {
+                border-color: #B9B9B9;
+            }
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,30 @@
+@use "../../../App.scss" as *;
+
+.dictionaryList{
+    display: flex;
+    flex-direction: column;
+    width: 1415px;
+
+    span {
+        width: 100px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: clip;
+    }
+    
+    div {
+        height: 50px;
+        gap: 20px;
+        padding: 15px;
+        text-align: center;
+        align-items: center;
+        border-bottom: solid #cfcece 1px ;
+    }
+
+    .listItem{
+        display: flex;
+        flex-direction: row;
+        background-color: #FFFFFF ;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,22 @@
+@use "../../../App.scss" as *;
+
+.addWordButton {
+    .link {
+        background-color: $activeButtonColor;
+        color: $colorButton;
+        text-decoration: none;
+        width: 220px;
+        padding: 0;
+        border: solid $activeButtonColor;
+        border-radius: $borderRadius;
+        border-width: 1px;
+        text-transform: uppercase;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+    
+        &:hover {
+          background-color: $colorButton;
+          color: $activeButtonColor;
+        }
+      }
+}

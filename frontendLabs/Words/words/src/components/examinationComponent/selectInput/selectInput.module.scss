@@ -1,0 +1,14 @@
+@use '../../../App.scss' as *;
+
+.select{
+    width: 218px;
+    height: 45px;
+    border-color: #B9B9B9;
+    border-radius: $borderRadius;
+    font-size: $button-font-size;
+    padding: 0 5px 0 1px;
+
+    &:focus{
+        outline: none;
+    }
+}

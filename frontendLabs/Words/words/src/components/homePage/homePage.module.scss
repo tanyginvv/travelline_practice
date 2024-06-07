@@ -1,0 +1,49 @@
+@use "../../App.scss" as *;
+
+
+.homePage {
+  h1 {
+    font-weight: $font-bold;
+    color: $font-color;
+    font-size: $header-font-size;
+    margin: 0 0 10px 0;
+  }
+
+  span {
+    display: flex;
+    direction: row;
+    width: 100%;
+    gap: 10px;
+    justify-content: space-between;
+  }
+
+  .link {
+    background-color: $activeButtonColor;
+    color: $colorButton;
+    text-decoration: none;
+    width: 175px;
+    padding: 5px;
+    border: solid $activeButtonColor;
+    border-radius: $borderRadius;
+    border-width: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s;
+
+    &:hover {
+      background-color: $colorButton;
+      color: $activeButtonColor;
+    }
+
+    &--secondary {
+      background-color: $secondaryButtonColor;
+      color: $secondaryButtonTextColor;
+      border-color: $secondaryButtonTextColor;
+
+      &:hover {
+        background-color: $secondaryButtonTextColor;
+        color: $secondaryButtonColor;
+      }
+    }
+  }
+}
