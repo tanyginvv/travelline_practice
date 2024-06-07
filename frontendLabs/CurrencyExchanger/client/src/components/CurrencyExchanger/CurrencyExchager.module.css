@@ -1,0 +1,46 @@
+.currencyExchanger {
+    width: 950px;
+    height: 100%;
+    background-color: #FFFFFF;
+    border-radius: 20px;
+    -webkit-box-shadow: 7px 10px 8px 0px rgba(56, 89, 114, 0.2);
+    -moz-box-shadow: 7px 10px 8px 0px rgba(56, 89, 114, 0.2);
+    box-shadow: 7px 10px 8px 0px rgba(56, 89, 114, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 5px
+}
+
+.menuClicker {
+    justify-content: center;
+    color: #808080;
+    width: 350px;
+    border: none;
+    border-radius: 20px;
+    background-color: #e4e4e4;
+    margin: 20px 0 0px 0;
+}
+
+.menuClicker:focus{
+    outline: none;
+}
+
+.errorBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 400px;
+    height: 200px; 
+    background-color: #ff4656;
+    padding: 16px; 
+    border-radius: 10px; 
+}
+
+.errorBoxText {
+    text-align: center;
+    color: #ffffff; 
+    font-size: 26px;
+    font-weight: 500;
+}
