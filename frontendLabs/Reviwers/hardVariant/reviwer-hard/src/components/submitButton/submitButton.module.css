@@ -1,0 +1,25 @@
+.buttonPanel {
+    margin-top: 25px;
+    width: 383px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.submitButton {
+    font-family: "EuclidCircularBLight";
+    width: 136px;
+    height: 32px;
+    background-color: #1E65B7;
+    color: #FFFFFF;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    font-weight: 300;
+    letter-spacing: 0.015em;
+    align-items: end;
+    cursor: pointer;
+}
+
+.submitButton:disabled {
+    background-color: #C0C0C0;
+}

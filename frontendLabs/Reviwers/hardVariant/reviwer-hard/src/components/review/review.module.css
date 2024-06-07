@@ -1,0 +1,45 @@
+.submitedData {
+    width: 550px;
+    height: 181px;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.dataImg {
+    width: 50px;
+    height: 50px;
+}
+
+.dataInfo {
+    display: flex;
+    flex-direction: row;
+    width: 550px;
+}
+
+.infoStar {
+    margin: 10px 0 0 12px;
+    color: #404040;
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.infoName {
+    width: 451px;
+    text-align: left;
+    margin-left: 20px;
+    font-size: 16px;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;    
+    text-overflow: clip;
+}
+
+.infoReview {
+    width: 451px;
+    text-align: left;
+    padding: 0 0 0 70px; 
+    color: #404040;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}

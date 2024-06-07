@@ -1,0 +1,15 @@
+.rangePanelItem {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.rangePanelItemLabel {
+    font-family: "EuclidCircularBLight";
+    font-size: 20px;
+    color: #404040;
+    margin-left: 20px;
+    width: 146px;
+    text-align: left;
+}

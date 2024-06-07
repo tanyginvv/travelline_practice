@@ -1,0 +1,21 @@
+
+.radioBtn {
+    visibility: hidden;
+}
+
+.buttonLabel {
+    width: 70px;
+    height: 34px;
+    border: 1px solid #DCDCDC;
+    border-radius: 46px;
+    cursor: pointer;
+}
+
+.activeBtn {
+    background-color: #1E64B7;
+}
+
+.radioImg {
+    margin-top: 5px;
+    margin-right: 20px;
+}
